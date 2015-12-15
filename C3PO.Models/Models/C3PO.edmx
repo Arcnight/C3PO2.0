@@ -1,0 +1,623 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="C3PO.Models.Store" Provider="Npgsql" ProviderManifestToken="9.3.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6005: The data type 'geometry' is currently not supported for the target Entity Framework version; the column 'geom' in the table 'postgres.public.boarding' was excluded.
+warning 6005: The data type 'tsvector' is currently not supported for the target Entity Framework version; the column 'text_vec' in the table 'postgres.public.boarding' was excluded.-->
+        <EntityType Name="boarding">
+          <Key>
+            <PropertyRef Name="bid" />
+          </Key>
+          <Property Name="vid" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="etid" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="bid" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="organization" Type="text" />
+          <Property Name="startdate" Type="date" />
+          <Property Name="enddate" Type="date" />
+          <Property Name="mastersafecontents" Type="text" />
+          <Property Name="crewattitude" Type="text" />
+          <Property Name="cargodescription" Type="text" />
+          <Property Name="latitude" Type="float4" />
+          <Property Name="longitude" Type="float4" />
+          <Property Name="tid" Type="int4" />
+          <Property Name="oid" Type="int4" />
+          <Property Name="ispublic" Type="bool" />
+          <Property Name="activitystated" Type="text" />
+          <Property Name="activitysuspected" Type="text" />
+          <Property Name="unit" Type="text" />
+          <Property Name="eventtype" Type="text" />
+          <Property Name="eventsubtype" Type="text" />
+          <Property Name="biometricscollected" Type="bool" Nullable="false" />
+          <Property Name="biometricsreason" Type="text" />
+          <Property Name="uid" Type="bpchar" MaxLength="36" />
+          <Property Name="methodofcommunicationwithcrew" Type="text" />
+          <Property Name="materialgivenaway" Type="bool" />
+          <Property Name="favoritehandoutitem" Type="text" />
+          <Property Name="startdateyear" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="startdatemonth" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="startdateday" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="observedspeed" Type="int4" />
+          <Property Name="locationdescription" Type="text" />
+          <Property Name="starthour" Type="int4" />
+          <Property Name="startminute" Type="int4" />
+          <Property Name="report" Type="text" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'tsvector' is currently not supported for the target Entity Framework version; the column 'text_vec' in the table 'postgres.public.company' was excluded.-->
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="text" />
+          <Property Name="fax" Type="text" />
+          <Property Name="email" Type="text" />
+          <Property Name="web" Type="text" />
+          <Property Name="address" Type="text" />
+          <Property Name="city" Type="text" />
+          <Property Name="countryid" Type="int4" />
+          <Property Name="notes" Type="text" />
+          <Property Name="tid" Type="int4" Nullable="false" />
+          <Property Name="oid" Type="int4" Nullable="false" />
+          <Property Name="ispublic" Type="bool" />
+          <Property Name="phone" Type="text" />
+          <Property Name="role" Type="text" />
+          <Property Name="report" Type="text" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'tsvector' is currently not supported for the target Entity Framework version; the column 'text_vec' in the table 'postgres.public.person' was excluded.-->
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="pid" />
+          </Key>
+          <Property Name="tribalaffiliation" Type="text" />
+          <Property Name="othernames" Type="text" />
+          <Property Name="placeofbirth" Type="text" />
+          <Property Name="haircolor" Type="text" />
+          <Property Name="eyecolor" Type="text" />
+          <Property Name="gender" Type="text" />
+          <Property Name="race" Type="text" />
+          <Property Name="heightinches" Type="int4" />
+          <Property Name="weightlbs" Type="int4" />
+          <Property Name="pid" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="verificationstatus" Type="text" Nullable="false" />
+          <Property Name="name" Type="text" />
+          <Property Name="requestsenton" Type="timestamptz" Precision="7" />
+          <Property Name="requestreceivedon" Type="timestamptz" Precision="7" />
+          <Property Name="tcn" Type="text" />
+          <Property Name="ori" Type="text" />
+          <Property Name="crewposition" Type="text" />
+          <Property Name="oid" Type="int4" />
+          <Property Name="tid" Type="int4" />
+          <Property Name="ispublic" Type="bool" />
+          <Property Name="fathersname" Type="text" />
+          <Property Name="grandfathersname" Type="text" />
+          <Property Name="isheightestimated" Type="bool" Nullable="false" />
+          <Property Name="isweightestimated" Type="bool" Nullable="false" />
+          <Property Name="isdobestimated" Type="bool" Nullable="false" />
+          <Property Name="primarylanguage" Type="text" />
+          <Property Name="nationalitycid" Type="int4" />
+          <Property Name="timeonboard" Type="text" />
+          <Property Name="isdetained" Type="bool" />
+          <Property Name="reasondetained" Type="text" />
+          <Property Name="address" Type="text" />
+          <Property Name="city" Type="text" />
+          <Property Name="telephonenumber" Type="text" />
+          <Property Name="faxnumber" Type="text" />
+          <Property Name="emailaddress" Type="text" />
+          <Property Name="country" Type="int4" />
+          <Property Name="dateofbirthyear" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="dateofbirthmonth" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="dateofbirthday" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="hairstyle" Type="text" />
+          <Property Name="background" Type="text" />
+          <Property Name="facialhair" Type="text" />
+          <Property Name="report" Type="text" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'tsvector' is currently not supported for the target Entity Framework version; the column 'text_vec' in the table 'postgres.public.vessel' was excluded.-->
+        <EntityType Name="vessel">
+          <Key>
+            <PropertyRef Name="vid" />
+          </Key>
+          <Property Name="name" Type="text" />
+          <Property Name="callsign" Type="text" />
+          <Property Name="vid" Type="numeric" Precision="19" Scale="4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mmsi" Type="text" />
+          <Property Name="imo" Type="text" />
+          <Property Name="sconum" Type="text" />
+          <Property Name="latitude" Type="float4" />
+          <Property Name="longitude" Type="float4" />
+          <Property Name="typeid" Type="int4" />
+          <Property Name="length" Type="float4" />
+          <Property Name="hullcolor" Type="text" />
+          <Property Name="funnelcolor" Type="text" />
+          <Property Name="superstructurecolor" Type="text" />
+          <Property Name="oid" Type="int4" />
+          <Property Name="tid" Type="int4" />
+          <Property Name="ispublic" Type="bool" />
+          <Property Name="registrationnumber" Type="text" />
+          <Property Name="externalmarkings" Type="text" />
+          <Property Name="inmarsat" Type="text" />
+          <Property Name="fueloilstatus" Type="text" />
+          <Property Name="dailyfueloilconsumption" Type="text" />
+          <Property Name="fuelloadedcost" Type="text" />
+          <Property Name="plantstatus" Type="text" />
+          <Property Name="beam" Type="float4" />
+          <Property Name="draft" Type="float4" />
+          <Property Name="islengthestimated" Type="bool" Nullable="false" />
+          <Property Name="isbeamestimated" Type="bool" Nullable="false" />
+          <Property Name="isdraftestimated" Type="bool" Nullable="false" />
+          <Property Name="lastportofcall" Type="text" />
+          <Property Name="hassatphones" Type="bool" />
+          <Property Name="hascellphones" Type="bool" />
+          <Property Name="crewtotal" Type="int4" />
+          <Property Name="skiffs" Type="int4" />
+          <Property Name="portofregistry" Type="text" />
+          <Property Name="nextportofcall" Type="text" />
+          <Property Name="pilothousedescription" Type="text" />
+          <Property Name="flagcid" Type="int4" />
+          <Property Name="lastportofcallcid" Type="int4" />
+          <Property Name="registrycid" Type="int4" />
+          <Property Name="nextportofcallcid" Type="int4" />
+          <Property Name="securityteamaboard" Type="bool" />
+          <Property Name="securityteamsize" Type="int4" />
+          <Property Name="securityteampartofcrew" Type="bool" />
+          <Property Name="fueltypeid" Type="int4" />
+          <Property Name="hiddencompartments" Type="text" />
+          <Property Name="explosivesdetected" Type="text" />
+          <Property Name="normaltradingroute" Type="text" />
+          <Property Name="aisrequired" Type="bool" />
+          <Property Name="aisonboard" Type="bool" />
+          <Property Name="aisfunctional" Type="bool" />
+          <Property Name="aiscorrect" Type="bool" />
+          <Property Name="etayear" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="etamonth" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="etaday" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="lastportofcallyear" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="lastportofcallmonth" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="lastportofcallday" Type="numeric" Precision="19" Scale="4" />
+          <Property Name="aisison" Type="bool" />
+          <Property Name="condition" Type="text" />
+          <Property Name="capabilities" Type="text" />
+          <Property Name="material" Type="text" />
+          <Property Name="conditionnotes" Type="text" />
+          <Property Name="report" Type="text" />
+        </EntityType>
+        <Association Name="boarding_vessel_fk">
+          <End Role="vessel" Type="Self.vessel" Multiplicity="0..1" />
+          <End Role="boarding" Type="Self.boarding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vessel">
+              <PropertyRef Name="vid" />
+            </Principal>
+            <Dependent Role="boarding">
+              <PropertyRef Name="vid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="C3POModelsStoreContainer">
+          <EntitySet Name="boarding" EntityType="Self.boarding" Schema="public" store:Type="Tables" />
+          <EntitySet Name="company" EntityType="Self.company" Schema="public" store:Type="Tables" />
+          <EntitySet Name="person" EntityType="Self.person" Schema="public" store:Type="Tables" />
+          <EntitySet Name="vessel" EntityType="Self.vessel" Schema="public" store:Type="Tables" />
+          <AssociationSet Name="boarding_vessel_fk" Association="Self.boarding_vessel_fk">
+            <End Role="vessel" EntitySet="vessel" />
+            <End Role="boarding" EntitySet="boarding" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="C3PO.Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="boarding">
+          <Key>
+            <PropertyRef Name="bid" />
+          </Key>
+          <Property Name="vid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="etid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="bid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="organization" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="startdate" Type="DateTime" Precision="0" />
+          <Property Name="enddate" Type="DateTime" Precision="0" />
+          <Property Name="mastersafecontents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="crewattitude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cargodescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="Single" />
+          <Property Name="longitude" Type="Single" />
+          <Property Name="tid" Type="Int32" />
+          <Property Name="oid" Type="Int32" />
+          <Property Name="ispublic" Type="Boolean" />
+          <Property Name="activitystated" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="activitysuspected" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="unit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="eventtype" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="eventsubtype" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="biometricscollected" Type="Boolean" Nullable="false" />
+          <Property Name="biometricsreason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="uid" Type="String" MaxLength="36" FixedLength="true" Unicode="true" />
+          <Property Name="methodofcommunicationwithcrew" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="materialgivenaway" Type="Boolean" />
+          <Property Name="favoritehandoutitem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="startdateyear" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="startdatemonth" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="startdateday" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="observedspeed" Type="Int32" />
+          <Property Name="locationdescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="starthour" Type="Int32" />
+          <Property Name="startminute" Type="Int32" />
+          <Property Name="report" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="vessel" Relationship="Self.boarding_vessel_fk" FromRole="boarding" ToRole="vessel" />
+        </EntityType>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fax" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="web" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="countryid" Type="Int32" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tid" Type="Int32" Nullable="false" />
+          <Property Name="oid" Type="Int32" Nullable="false" />
+          <Property Name="ispublic" Type="Boolean" />
+          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="report" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="pid" />
+          </Key>
+          <Property Name="tribalaffiliation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="othernames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="placeofbirth" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="haircolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="eyecolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="race" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="heightinches" Type="Int32" />
+          <Property Name="weightlbs" Type="Int32" />
+          <Property Name="pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="verificationstatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="requestsenton" Type="DateTimeOffset" Precision="7" />
+          <Property Name="requestreceivedon" Type="DateTimeOffset" Precision="7" />
+          <Property Name="tcn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ori" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="crewposition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="oid" Type="Int32" />
+          <Property Name="tid" Type="Int32" />
+          <Property Name="ispublic" Type="Boolean" />
+          <Property Name="fathersname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="grandfathersname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isheightestimated" Type="Boolean" Nullable="false" />
+          <Property Name="isweightestimated" Type="Boolean" Nullable="false" />
+          <Property Name="isdobestimated" Type="Boolean" Nullable="false" />
+          <Property Name="primarylanguage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nationalitycid" Type="Int32" />
+          <Property Name="timeonboard" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isdetained" Type="Boolean" />
+          <Property Name="reasondetained" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="telephonenumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="faxnumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="emailaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="Int32" />
+          <Property Name="dateofbirthyear" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="dateofbirthmonth" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="dateofbirthday" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="hairstyle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="background" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="facialhair" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="report" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vessel">
+          <Key>
+            <PropertyRef Name="vid" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="callsign" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="vid" Type="Decimal" Precision="19" Scale="4" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mmsi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="imo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sconum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="Single" />
+          <Property Name="longitude" Type="Single" />
+          <Property Name="typeid" Type="Int32" />
+          <Property Name="length" Type="Single" />
+          <Property Name="hullcolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="funnelcolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="superstructurecolor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="oid" Type="Int32" />
+          <Property Name="tid" Type="Int32" />
+          <Property Name="ispublic" Type="Boolean" />
+          <Property Name="registrationnumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="externalmarkings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="inmarsat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fueloilstatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dailyfueloilconsumption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fuelloadedcost" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="plantstatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="beam" Type="Single" />
+          <Property Name="draft" Type="Single" />
+          <Property Name="islengthestimated" Type="Boolean" Nullable="false" />
+          <Property Name="isbeamestimated" Type="Boolean" Nullable="false" />
+          <Property Name="isdraftestimated" Type="Boolean" Nullable="false" />
+          <Property Name="lastportofcall" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="hassatphones" Type="Boolean" />
+          <Property Name="hascellphones" Type="Boolean" />
+          <Property Name="crewtotal" Type="Int32" />
+          <Property Name="skiffs" Type="Int32" />
+          <Property Name="portofregistry" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nextportofcall" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pilothousedescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="flagcid" Type="Int32" />
+          <Property Name="lastportofcallcid" Type="Int32" />
+          <Property Name="registrycid" Type="Int32" />
+          <Property Name="nextportofcallcid" Type="Int32" />
+          <Property Name="securityteamaboard" Type="Boolean" />
+          <Property Name="securityteamsize" Type="Int32" />
+          <Property Name="securityteampartofcrew" Type="Boolean" />
+          <Property Name="fueltypeid" Type="Int32" />
+          <Property Name="hiddencompartments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="explosivesdetected" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="normaltradingroute" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="aisrequired" Type="Boolean" />
+          <Property Name="aisonboard" Type="Boolean" />
+          <Property Name="aisfunctional" Type="Boolean" />
+          <Property Name="aiscorrect" Type="Boolean" />
+          <Property Name="etayear" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="etamonth" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="etaday" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="lastportofcallyear" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="lastportofcallmonth" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="lastportofcallday" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="aisison" Type="Boolean" />
+          <Property Name="condition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="capabilities" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="material" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="conditionnotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="report" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="boardings" Relationship="Self.boarding_vessel_fk" FromRole="vessel" ToRole="boarding" />
+        </EntityType>
+        <Association Name="boarding_vessel_fk">
+          <End Role="vessel" Type="Self.vessel" Multiplicity="0..1" />
+          <End Role="boarding" Type="Self.boarding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vessel">
+              <PropertyRef Name="vid" />
+            </Principal>
+            <Dependent Role="boarding">
+              <PropertyRef Name="vid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="postgresEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="boardings" EntityType="Self.boarding" />
+          <EntitySet Name="companies" EntityType="Self.company" />
+          <EntitySet Name="people" EntityType="Self.person" />
+          <EntitySet Name="vessels" EntityType="Self.vessel" />
+          <AssociationSet Name="boarding_vessel_fk" Association="Self.boarding_vessel_fk">
+            <End Role="vessel" EntitySet="vessels" />
+            <End Role="boarding" EntitySet="boardings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="C3POModelsStoreContainer" CdmEntityContainer="postgresEntities">
+          <EntitySetMapping Name="boardings">
+            <EntityTypeMapping TypeName="C3PO.Models.boarding">
+              <MappingFragment StoreEntitySet="boarding">
+                <ScalarProperty Name="vid" ColumnName="vid" />
+                <ScalarProperty Name="etid" ColumnName="etid" />
+                <ScalarProperty Name="bid" ColumnName="bid" />
+                <ScalarProperty Name="organization" ColumnName="organization" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="enddate" ColumnName="enddate" />
+                <ScalarProperty Name="mastersafecontents" ColumnName="mastersafecontents" />
+                <ScalarProperty Name="crewattitude" ColumnName="crewattitude" />
+                <ScalarProperty Name="cargodescription" ColumnName="cargodescription" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="tid" ColumnName="tid" />
+                <ScalarProperty Name="oid" ColumnName="oid" />
+                <ScalarProperty Name="ispublic" ColumnName="ispublic" />
+                <ScalarProperty Name="activitystated" ColumnName="activitystated" />
+                <ScalarProperty Name="activitysuspected" ColumnName="activitysuspected" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="eventtype" ColumnName="eventtype" />
+                <ScalarProperty Name="eventsubtype" ColumnName="eventsubtype" />
+                <ScalarProperty Name="biometricscollected" ColumnName="biometricscollected" />
+                <ScalarProperty Name="biometricsreason" ColumnName="biometricsreason" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="methodofcommunicationwithcrew" ColumnName="methodofcommunicationwithcrew" />
+                <ScalarProperty Name="materialgivenaway" ColumnName="materialgivenaway" />
+                <ScalarProperty Name="favoritehandoutitem" ColumnName="favoritehandoutitem" />
+                <ScalarProperty Name="startdateyear" ColumnName="startdateyear" />
+                <ScalarProperty Name="startdatemonth" ColumnName="startdatemonth" />
+                <ScalarProperty Name="startdateday" ColumnName="startdateday" />
+                <ScalarProperty Name="observedspeed" ColumnName="observedspeed" />
+                <ScalarProperty Name="locationdescription" ColumnName="locationdescription" />
+                <ScalarProperty Name="starthour" ColumnName="starthour" />
+                <ScalarProperty Name="startminute" ColumnName="startminute" />
+                <ScalarProperty Name="report" ColumnName="report" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="companies">
+            <EntityTypeMapping TypeName="C3PO.Models.company">
+              <MappingFragment StoreEntitySet="company">
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="web" ColumnName="web" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="countryid" ColumnName="countryid" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="tid" ColumnName="tid" />
+                <ScalarProperty Name="oid" ColumnName="oid" />
+                <ScalarProperty Name="ispublic" ColumnName="ispublic" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="report" ColumnName="report" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="people">
+            <EntityTypeMapping TypeName="C3PO.Models.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="tribalaffiliation" ColumnName="tribalaffiliation" />
+                <ScalarProperty Name="othernames" ColumnName="othernames" />
+                <ScalarProperty Name="placeofbirth" ColumnName="placeofbirth" />
+                <ScalarProperty Name="haircolor" ColumnName="haircolor" />
+                <ScalarProperty Name="eyecolor" ColumnName="eyecolor" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="race" ColumnName="race" />
+                <ScalarProperty Name="heightinches" ColumnName="heightinches" />
+                <ScalarProperty Name="weightlbs" ColumnName="weightlbs" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="verificationstatus" ColumnName="verificationstatus" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="requestsenton" ColumnName="requestsenton" />
+                <ScalarProperty Name="requestreceivedon" ColumnName="requestreceivedon" />
+                <ScalarProperty Name="tcn" ColumnName="tcn" />
+                <ScalarProperty Name="ori" ColumnName="ori" />
+                <ScalarProperty Name="crewposition" ColumnName="crewposition" />
+                <ScalarProperty Name="oid" ColumnName="oid" />
+                <ScalarProperty Name="tid" ColumnName="tid" />
+                <ScalarProperty Name="ispublic" ColumnName="ispublic" />
+                <ScalarProperty Name="fathersname" ColumnName="fathersname" />
+                <ScalarProperty Name="grandfathersname" ColumnName="grandfathersname" />
+                <ScalarProperty Name="isheightestimated" ColumnName="isheightestimated" />
+                <ScalarProperty Name="isweightestimated" ColumnName="isweightestimated" />
+                <ScalarProperty Name="isdobestimated" ColumnName="isdobestimated" />
+                <ScalarProperty Name="primarylanguage" ColumnName="primarylanguage" />
+                <ScalarProperty Name="nationalitycid" ColumnName="nationalitycid" />
+                <ScalarProperty Name="timeonboard" ColumnName="timeonboard" />
+                <ScalarProperty Name="isdetained" ColumnName="isdetained" />
+                <ScalarProperty Name="reasondetained" ColumnName="reasondetained" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="telephonenumber" ColumnName="telephonenumber" />
+                <ScalarProperty Name="faxnumber" ColumnName="faxnumber" />
+                <ScalarProperty Name="emailaddress" ColumnName="emailaddress" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="dateofbirthyear" ColumnName="dateofbirthyear" />
+                <ScalarProperty Name="dateofbirthmonth" ColumnName="dateofbirthmonth" />
+                <ScalarProperty Name="dateofbirthday" ColumnName="dateofbirthday" />
+                <ScalarProperty Name="hairstyle" ColumnName="hairstyle" />
+                <ScalarProperty Name="background" ColumnName="background" />
+                <ScalarProperty Name="facialhair" ColumnName="facialhair" />
+                <ScalarProperty Name="report" ColumnName="report" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vessels">
+            <EntityTypeMapping TypeName="C3PO.Models.vessel">
+              <MappingFragment StoreEntitySet="vessel">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="callsign" ColumnName="callsign" />
+                <ScalarProperty Name="vid" ColumnName="vid" />
+                <ScalarProperty Name="mmsi" ColumnName="mmsi" />
+                <ScalarProperty Name="imo" ColumnName="imo" />
+                <ScalarProperty Name="sconum" ColumnName="sconum" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="typeid" ColumnName="typeid" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="hullcolor" ColumnName="hullcolor" />
+                <ScalarProperty Name="funnelcolor" ColumnName="funnelcolor" />
+                <ScalarProperty Name="superstructurecolor" ColumnName="superstructurecolor" />
+                <ScalarProperty Name="oid" ColumnName="oid" />
+                <ScalarProperty Name="tid" ColumnName="tid" />
+                <ScalarProperty Name="ispublic" ColumnName="ispublic" />
+                <ScalarProperty Name="registrationnumber" ColumnName="registrationnumber" />
+                <ScalarProperty Name="externalmarkings" ColumnName="externalmarkings" />
+                <ScalarProperty Name="inmarsat" ColumnName="inmarsat" />
+                <ScalarProperty Name="fueloilstatus" ColumnName="fueloilstatus" />
+                <ScalarProperty Name="dailyfueloilconsumption" ColumnName="dailyfueloilconsumption" />
+                <ScalarProperty Name="fuelloadedcost" ColumnName="fuelloadedcost" />
+                <ScalarProperty Name="plantstatus" ColumnName="plantstatus" />
+                <ScalarProperty Name="beam" ColumnName="beam" />
+                <ScalarProperty Name="draft" ColumnName="draft" />
+                <ScalarProperty Name="islengthestimated" ColumnName="islengthestimated" />
+                <ScalarProperty Name="isbeamestimated" ColumnName="isbeamestimated" />
+                <ScalarProperty Name="isdraftestimated" ColumnName="isdraftestimated" />
+                <ScalarProperty Name="lastportofcall" ColumnName="lastportofcall" />
+                <ScalarProperty Name="hassatphones" ColumnName="hassatphones" />
+                <ScalarProperty Name="hascellphones" ColumnName="hascellphones" />
+                <ScalarProperty Name="crewtotal" ColumnName="crewtotal" />
+                <ScalarProperty Name="skiffs" ColumnName="skiffs" />
+                <ScalarProperty Name="portofregistry" ColumnName="portofregistry" />
+                <ScalarProperty Name="nextportofcall" ColumnName="nextportofcall" />
+                <ScalarProperty Name="pilothousedescription" ColumnName="pilothousedescription" />
+                <ScalarProperty Name="flagcid" ColumnName="flagcid" />
+                <ScalarProperty Name="lastportofcallcid" ColumnName="lastportofcallcid" />
+                <ScalarProperty Name="registrycid" ColumnName="registrycid" />
+                <ScalarProperty Name="nextportofcallcid" ColumnName="nextportofcallcid" />
+                <ScalarProperty Name="securityteamaboard" ColumnName="securityteamaboard" />
+                <ScalarProperty Name="securityteamsize" ColumnName="securityteamsize" />
+                <ScalarProperty Name="securityteampartofcrew" ColumnName="securityteampartofcrew" />
+                <ScalarProperty Name="fueltypeid" ColumnName="fueltypeid" />
+                <ScalarProperty Name="hiddencompartments" ColumnName="hiddencompartments" />
+                <ScalarProperty Name="explosivesdetected" ColumnName="explosivesdetected" />
+                <ScalarProperty Name="normaltradingroute" ColumnName="normaltradingroute" />
+                <ScalarProperty Name="aisrequired" ColumnName="aisrequired" />
+                <ScalarProperty Name="aisonboard" ColumnName="aisonboard" />
+                <ScalarProperty Name="aisfunctional" ColumnName="aisfunctional" />
+                <ScalarProperty Name="aiscorrect" ColumnName="aiscorrect" />
+                <ScalarProperty Name="etayear" ColumnName="etayear" />
+                <ScalarProperty Name="etamonth" ColumnName="etamonth" />
+                <ScalarProperty Name="etaday" ColumnName="etaday" />
+                <ScalarProperty Name="lastportofcallyear" ColumnName="lastportofcallyear" />
+                <ScalarProperty Name="lastportofcallmonth" ColumnName="lastportofcallmonth" />
+                <ScalarProperty Name="lastportofcallday" ColumnName="lastportofcallday" />
+                <ScalarProperty Name="aisison" ColumnName="aisison" />
+                <ScalarProperty Name="condition" ColumnName="condition" />
+                <ScalarProperty Name="capabilities" ColumnName="capabilities" />
+                <ScalarProperty Name="material" ColumnName="material" />
+                <ScalarProperty Name="conditionnotes" ColumnName="conditionnotes" />
+                <ScalarProperty Name="report" ColumnName="report" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
