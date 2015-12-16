@@ -25,16 +25,16 @@ namespace C3PO.Data.Models
         public string mmsi { get; set; }
         public string imo { get; set; }
         public string sconum { get; set; }
-        public float? latitude { get; set; }
-        public float? longitude { get; set; }
-        public int? typeid { get; set; }
-        public float? length { get; set; }
+        public Nullable<float> latitude { get; set; }
+        public Nullable<float> longitude { get; set; }
+        public Nullable<int> typeid { get; set; }
+        public Nullable<float> length { get; set; }
         public string hullcolor { get; set; }
         public string funnelcolor { get; set; }
         public string superstructurecolor { get; set; }
-        public int? oid { get; set; }
-        public int? tid { get; set; }
-        public bool? ispublic { get; set; }
+        public Nullable<int> oid { get; set; }
+        public Nullable<int> tid { get; set; }
+        public Nullable<bool> ispublic { get; set; }
         public string registrationnumber { get; set; }
         public string externalmarkings { get; set; }
         public string inmarsat { get; set; }
@@ -42,41 +42,41 @@ namespace C3PO.Data.Models
         public string dailyfueloilconsumption { get; set; }
         public string fuelloadedcost { get; set; }
         public string plantstatus { get; set; }
-        public float? beam { get; set; }
-        public float? draft { get; set; }
+        public Nullable<float> beam { get; set; }
+        public Nullable<float> draft { get; set; }
         public bool islengthestimated { get; set; }
         public bool isbeamestimated { get; set; }
         public bool isdraftestimated { get; set; }
         public string lastportofcall { get; set; }
-        public bool? hassatphones { get; set; }
-        public bool? hascellphones { get; set; }
-        public int? crewtotal { get; set; }
-        public int? skiffs { get; set; }
+        public Nullable<bool> hassatphones { get; set; }
+        public Nullable<bool> hascellphones { get; set; }
+        public Nullable<int> crewtotal { get; set; }
+        public Nullable<int> skiffs { get; set; }
         public string portofregistry { get; set; }
         public string nextportofcall { get; set; }
         public string pilothousedescription { get; set; }
-        public int? flagcid { get; set; }
-        public int? lastportofcallcid { get; set; }
-        public int? registrycid { get; set; }
-        public int? nextportofcallcid { get; set; }
-        public bool? securityteamaboard { get; set; }
-        public int? securityteamsize { get; set; }
-        public bool? securityteampartofcrew { get; set; }
-        public int? fueltypeid { get; set; }
+        public Nullable<int> flagcid { get; set; }
+        public Nullable<int> lastportofcallcid { get; set; }
+        public Nullable<int> registrycid { get; set; }
+        public Nullable<int> nextportofcallcid { get; set; }
+        public Nullable<bool> securityteamaboard { get; set; }
+        public Nullable<int> securityteamsize { get; set; }
+        public Nullable<bool> securityteampartofcrew { get; set; }
+        public Nullable<int> fueltypeid { get; set; }
         public string hiddencompartments { get; set; }
         public string explosivesdetected { get; set; }
         public string normaltradingroute { get; set; }
-        public bool? aisrequired { get; set; }
-        public bool? aisonboard { get; set; }
-        public bool? aisfunctional { get; set; }
-        public bool? aiscorrect { get; set; }
-        public decimal? etayear { get; set; }
-        public decimal? etamonth { get; set; }
-        public decimal? etaday { get; set; }
-        public decimal? lastportofcallyear { get; set; }
-        public decimal? lastportofcallmonth { get; set; }
-        public decimal? lastportofcallday { get; set; }
-        public bool? aisison { get; set; }
+        public Nullable<bool> aisrequired { get; set; }
+        public Nullable<bool> aisonboard { get; set; }
+        public Nullable<bool> aisfunctional { get; set; }
+        public Nullable<bool> aiscorrect { get; set; }
+        public Nullable<decimal> etayear { get; set; }
+        public Nullable<decimal> etamonth { get; set; }
+        public Nullable<decimal> etaday { get; set; }
+        public Nullable<decimal> lastportofcallyear { get; set; }
+        public Nullable<decimal> lastportofcallmonth { get; set; }
+        public Nullable<decimal> lastportofcallday { get; set; }
+        public Nullable<bool> aisison { get; set; }
         public string condition { get; set; }
         public string capabilities { get; set; }
         public string material { get; set; }

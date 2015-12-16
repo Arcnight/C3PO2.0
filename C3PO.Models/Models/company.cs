@@ -21,11 +21,11 @@ namespace C3PO.Data.Models
         public string web { get; set; }
         public string address { get; set; }
         public string city { get; set; }
-        public int? countryid { get; set; }
+        public Nullable<int> countryid { get; set; }
         public string notes { get; set; }
         public int tid { get; set; }
         public int oid { get; set; }
-        public bool? ispublic { get; set; }
+        public Nullable<bool> ispublic { get; set; }
         public string phone { get; set; }
         public string role { get; set; }
         public string report { get; set; }

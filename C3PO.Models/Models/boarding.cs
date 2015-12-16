@@ -14,20 +14,20 @@ namespace C3PO.Data.Models
     
     public partial class boarding
     {
-        public int? vid { get; set; }
-        public int? etid { get; set; }
+        public Nullable<decimal> vid { get; set; }
+        public Nullable<decimal> etid { get; set; }
         public int bid { get; set; }
         public string organization { get; set; }
-        public DateTime? startdate { get; set; }
-        public DateTime? enddate { get; set; }
+        public Nullable<System.DateTime> startdate { get; set; }
+        public Nullable<System.DateTime> enddate { get; set; }
         public string mastersafecontents { get; set; }
         public string crewattitude { get; set; }
         public string cargodescription { get; set; }
-        public float? latitude { get; set; }
-        public float? longitude { get; set; }
-        public int? tid { get; set; }
-        public int? oid { get; set; }
-        public bool? ispublic { get; set; }
+        public Nullable<float> latitude { get; set; }
+        public Nullable<float> longitude { get; set; }
+        public Nullable<int> tid { get; set; }
+        public Nullable<int> oid { get; set; }
+        public Nullable<bool> ispublic { get; set; }
         public string activitystated { get; set; }
         public string activitysuspected { get; set; }
         public string unit { get; set; }
@@ -37,15 +37,15 @@ namespace C3PO.Data.Models
         public string biometricsreason { get; set; }
         public string uid { get; set; }
         public string methodofcommunicationwithcrew { get; set; }
-        public bool? materialgivenaway { get; set; }
+        public Nullable<bool> materialgivenaway { get; set; }
         public string favoritehandoutitem { get; set; }
-        public int? startdateyear { get; set; }
-        public int? startdatemonth { get; set; }
-        public int? startdateday { get; set; }
-        public int? observedspeed { get; set; }
+        public Nullable<decimal> startdateyear { get; set; }
+        public Nullable<decimal> startdatemonth { get; set; }
+        public Nullable<decimal> startdateday { get; set; }
+        public Nullable<int> observedspeed { get; set; }
         public string locationdescription { get; set; }
-        public int? starthour { get; set; }
-        public int? startminute { get; set; }
+        public Nullable<int> starthour { get; set; }
+        public Nullable<int> startminute { get; set; }
         public string report { get; set; }
     
         public virtual vessel vessel { get; set; }

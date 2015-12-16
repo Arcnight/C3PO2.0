@@ -16,21 +16,19 @@ using C3PO.Utilities;
 
 namespace C3PO.Services.Controllers
 {
-    //[Route("boardings")]
-    internal class BoardingController : ApiController
+    public class BoardingController : ApiController
     {
         IServiceLocator _svcLocator;
 
         public BoardingController()
         {
-            _svcLocator = ServiceLocator.Current;
+            _svcLocator = Bootstrapper.InitializeServiceLocator();
         }
 
         [HttpGet]
-        //[Route("{id:int}")]
         public HttpResponseMessage Get(int id)
         {
-            return Web.CreateResponse(Request, _svcLocator.GetInstance<IBoardingRepository>().Get(id));
+            return Web.CreateResponse<boarding>(Request, _svcLocator.GetInstance<IBoardingRepository>().Get(id));
         }
     }
 }
