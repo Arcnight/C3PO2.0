@@ -1,5 +1,7 @@
 ﻿using System;
 
+using System.Web.Http;
+
 using System.Net;
 using System.Net.Http;
 
@@ -25,6 +27,25 @@ namespace C3PO.Utilities
             }
 
             return response;
+        }
+
+        public static HttpResponseMessage CreateResponse(HttpRequestMessage request, HttpStatusCode code)
+        {
+            var response = new HttpResponseMessage(code);
+
+            if (request != null)
+            {
+                request.CreateResponse(code);
+
+                response.Headers.Location = new Uri(request.RequestUri, string.Empty);
+            }
+
+            return response;
+        }
+
+        public static HttpResponseException CreateResponseException(HttpRequestMessage request, HttpStatusCode code)
+        {
+            return new HttpResponseException(CreateResponse(request, code));
         }
     }
 }
