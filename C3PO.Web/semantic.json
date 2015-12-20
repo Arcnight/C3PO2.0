@@ -1,49 +1,21 @@
 {
-    "base": "semantic\\",
-    "paths": {
-        "source": {
-            "config": "src/theme.config",
-            "definitions": "src/definitions/",
-            "site": "src/site/",
-            "themes": "src/themes/"
-        },
-        "output": {
-            "packaged": "../build/semantic/js/",
-            "uncompressed": "dist/components/",
-            "compressed": "../build/semantic/js/components/",
-            "themes": "dist/themes/"
-        },
-        "clean": "dist/"
+  "base": "semantic\\",
+  "paths": {
+    "source": {
+      "config": "src/theme.config",
+      "definitions": "src/definitions/",
+      "site": "src/site/",
+      "themes": "src/themes/"
     },
-    "permission": false,
-    "rtl": false,
-    "version": "2.1.6",
-    "rtl": false,
-    "components": [
-        "reset",
-        "site",
-        "button",
-        "container",
-        "divider",
-        "header",
-        "input",
-        "label",
-        "list",
-        "form",
-        "grid",
-        "menu",
-        "message",
-        "table",
-        "item",
-        "checkbox",
-        "dropdown",
-        "modal",
-        "popup",
-        "search",
-        "tab",
-        "api",
-        "form",
-        "state",
-        "visibility"
-    ]
+    "output": {
+      "packaged": "../build/js/",
+      "uncompressed": "../build/js/",
+      "compressed": "../build/js/",
+      "themes": "../build/themes/"
+    },
+    "clean": "dist/"
+  },
+  "permission": false,
+  "rtl": false,
+  "version": "2.1.6"
 }
