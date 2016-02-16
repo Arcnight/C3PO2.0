@@ -170,3 +170,5 @@ src/PSIP/Web/Internal/assets/stylesheets/Copy of custom-styles.less
 target
 node_modules
 C3PO.Web_old
+packages
+builds
