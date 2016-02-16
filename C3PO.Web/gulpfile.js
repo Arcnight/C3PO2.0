@@ -1,207 +1,188 @@
-/*!
- * Facebook React Starter Kit | https://github.com/kriasoft/react-starter-kit
- * Copyright (c) KriaSoft, LLC. All rights reserved. See LICENSE.txt
+﻿/*
+ *  Copyright (c) 2015, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the BSD-style license found in the
+ *  LICENSE file in the root directory of this source tree. An additional grant 
+ *  of patent rights can be found in the PATENTS file in the same directory.
  */
 
-'use strict';
+var ROOT_DIR = 'Resources/scripts';
+var OUTPUT_DIR = ROOT_DIR + '/build';
 
-// Include Gulp and other build automation tools and utilities
-// See: https://github.com/gulpjs/gulp/blob/master/docs/API.md
+var paths = {
+    src: {
+        jsx: ROOT_DIR + '/src/*.jsx',
+        app: ROOT_DIR + '/app/main.js',
+        scripts: ROOT_DIR + '/**/*.js'
+    },
+    dest: {
+        bundles: OUTPUT_DIR + '/dist',
+        bundlesFilter: '!' + OUTPUT_DIR + '/dist/**/*.js',
+        serverBundle: 'serverBundle.js',
+        clientBundle: 'clientBundle.js',
+        jsx: OUTPUT_DIR + '/app/Components'
+    }
+};
+
+var gulp = require("gulp");
+var gulpReact = require('gulp-react');
+var source = require('vinyl-source-stream');
+var streams = require('memory-streams');
+var CombinedStream = require('combined-stream');
+var os = require('os');
+var browserify = require('browserify');
+var babelify = require("babelify");
+
+var createServerBundle = function (browserify, configPath) {
+    var utils = {
+        parseConfig: function (config) {
+            if (config) {
+                if (config.expose) {
+                    var components = {};
+                    //1. parse the configuration
+                    config.expose.forEach(function (component) {
+                        var path, name;
+
+                        if (typeof component === 'string') {
+                            path = component;
+                        } else {
+                            path = component.path;
+                            if (component.name) name = component.name;
+                        }
+
+                        if (name === undefined) {
+                            var splitted = path.split('/');
+                            name = splitted[splitted.length - 1];
+                        }
+
+                        components[name] = path;
+                    });
+
+                    return components;
+                }
+            }
+        },
+
+        exposeReact: function (exposedVariables, requires) {
+            requires.push({ file: "react" });
+            exposedVariables.append('var React = require("react");' + os.EOL);
+        }
+    };
+
+    if (configPath === undefined) configPath = './reactServerConfig.json';
+
+    var config = require(configPath);
+    var serverComponents = utils.parseConfig(config);
+
+    browserify.transform(babelify, { presets: ['es2015', 'react'] });
+
+    if (serverComponents) {
+        var exposedVariables = CombinedStream.create();
+        var requires = [];
+
+        exposedVariables.append(';' + os.EOL);
+        utils.exposeReact(exposedVariables, requires);
+
+        for (var name in serverComponents) {
+            var path = serverComponents[name];
+            requires.push({ file: path, expose: name });
+            exposedVariables.append('var ' + name + ' = require("' + name + '");');
+        }
+
+        browserify.require(requires);
+
+        var bundleStream = CombinedStream.create();
+        bundleStream.append(browserify.bundle());
+        bundleStream.append(exposedVariables);
+
+        return bundleStream;
+    }
+};
+
+var gulpServerBundle = function () {
+    var bundle = createServerBundle(browserify({ extensions: ['.jsx', '.js'] }));
+
+    return bundle
+      .pipe(source(paths.dest.serverBundle))
+      .pipe(gulp.dest(paths.dest.bundles));
+};
+
+gulp.task('server-build', function () { return gulpServerBundle(); });
+
+var gulpClientBundle = function () {
+    var bundle = createServerBundle(browserify(paths.src.app, { extensions: ['.jsx', '.js'] }));
+
+    return bundle
+      .pipe(source(paths.dest.clientBundle))
+      .pipe(gulp.dest(paths.dest.bundles));
+};
+
+gulp.task('client-build', function () { return gulpClientBundle(); });
+
+//gulp.task('react', function () {
+//    return gulp.src(paths.src.jsx)
+//      .pipe(gulpReact())
+//      .pipe(gulp.dest(paths.dest.jsx));
+//});
+
+/*
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
-var del = require('del');
-var path = require('path');
-var merge = require('merge-stream');
-var runSequence = require('run-sequence');
+var named = require('vinyl-named');
 var webpack = require('webpack');
-var browserSync = require('browser-sync');
-var pagespeed = require('psi');
-var argv = require('minimist')(process.argv.slice(2));
+var webpackStream = require('webpack-stream');
+var uglify = require('gulp-uglify');
 
-// Settings
-var DEST = './build';                         // The build output folder
-var RELEASE = !!argv.release;                 // Minimize and optimize during a build?
-var GOOGLE_ANALYTICS_ID = 'UA-XXXXX-X';       // https://www.google.com/analytics/web/
-var AUTOPREFIXER_BROWSERS = [                 // https://github.com/ai/autoprefixer
-  'ie >= 10',
-  'ie_mob >= 10',
-  'ff >= 30',
-  'chrome >= 34',
-  'safari >= 7',
-  'opera >= 23',
-  'ios >= 7',
-  'android >= 4.4',
-  'bb >= 10'
-];
+gulp.task('default', ['build']);
+gulp.task('build', ['build-react-dev', 'build-deps-prod']);
 
-var src = {};
-var watch = false;
-var pkgs = (function () {
-  var temp = {};
-  var map = function (source) {
-    for (var key in source) {
-      temp[key.replace(/[^a-z0-9]/gi, '')] = source[key].substring(1);
-    }
-  };
-  map(require('./package.json').dependencies);
-  return temp;
-}());
-
-// The default task
-gulp.task('default', ['serve']);
-
-// Clean up
-gulp.task('clean', del.bind(null, [DEST]));
-
-// 3rd party libraries
-gulp.task('vendor', function () {
-  return merge(
-    gulp.src('./node_modules/jquery/dist/**')
-      .pipe(gulp.dest(DEST + '/vendor/jquery-' + pkgs.jquery)),
-    gulp.src('./node_modules/bootstrap/dist/fonts/**')
-      .pipe(gulp.dest(DEST + '/fonts'))
-  );
+gulp.task('build-react-dev', function() {
+	return gulp.src('Resources/react.js')
+		.pipe(webpackStream({
+			output: {
+				filename: 'react.generated.js',
+				libraryTarget: 'this'
+			},
+			plugins: [
+				new webpack.DefinePlugin({
+					'process.env.NODE_ENV': '"development"'
+				}),
+				new webpack.optimize.OccurenceOrderPlugin(),
+				new webpack.optimize.DedupePlugin()
+			]
+		}))
+		.pipe(gulp.dest(OUTPUT_DIR));
 });
 
-// Static files
-gulp.task('assets', function () {
-  src.assets = 'src/assets/**';
-  return gulp.src(src.assets)
-    .pipe($.changed(DEST))
-    .pipe(gulp.dest(DEST))
-    .pipe($.size({title: 'assets'}));
+gulp.task('build-deps-prod', function () {
+	return gulp.src(['Resources/react.js', 'Resources/babel.js'])
+		.pipe(named())
+		.pipe(webpackStream({
+			module: {
+				loaders: [
+					{
+						exclude: /node_modules/,
+						test: /\.js$/,
+						loader: 'babel',
+						query: {
+							presets: ['es2015', 'stage-0']
+						}
+					},
+				]
+			},
+			output: {
+				filename: '[name].generated.min.js',
+				libraryTarget: 'this'
+			},
+			plugins: [
+				new webpack.DefinePlugin({
+					'process.env.NODE_ENV': '"production"'
+				}),
+				new webpack.optimize.OccurenceOrderPlugin(),
+				new webpack.optimize.DedupePlugin()
+			]
+		}))
+		.pipe(uglify())
+		.pipe(gulp.dest(OUTPUT_DIR));
 });
-
-// Images
-gulp.task('images', function () {
-  src.images = 'src/images/**';
-  return gulp.src(src.images)
-    .pipe($.changed(DEST + '/images'))
-    .pipe($.cache($.imagemin({
-      progressive: true,
-      interlaced: true
-    })))
-    .pipe(gulp.dest(DEST + '/images'))
-    .pipe($.size({title: 'images'}));
-});
-
-// HTML pages
-gulp.task('pages', function () {
-  src.pages = 'src/pages/**/*.html';
-  return gulp.src(src.pages)
-    .pipe($.changed(DEST))
-    .pipe($.if(RELEASE, $.htmlmin({
-      removeComments: true,
-      collapseWhitespace: true,
-      minifyJS: true
-    })))
-    .pipe(gulp.dest(DEST))
-    .pipe($.size({title: 'pages'}));
-});
-
-// CSS style sheets
-gulp.task('styles', function () {
-  src.styles = 'src/styles/**/*.{css,less}';
-  return gulp.src('src/styles/bootstrap.less')
-    .pipe($.plumber())
-    .pipe($.less({
-      sourceMap: !RELEASE,
-      sourceMapBasepath: __dirname
-    }))
-    .on('error', console.error.bind(console))
-    .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
-    .pipe($.csscomb())
-    .pipe($.if(RELEASE, $.minifyCss()))
-    .pipe(gulp.dest(DEST + '/css'))
-    .pipe($.size({title: 'styles'}));
-});
-
-// Bundle
-gulp.task('bundle', function (cb) {
-  var started = false;
-  var config = require('./config/webpack.js')(RELEASE);
-  var bundler = webpack(config);
-
-  function bundle(err, stats) {
-    if (err) {
-      throw new $.util.PluginError('webpack', err);
-    }
-
-    !!argv.verbose && $.util.log('[webpack]', stats.toString({colors: true}));
-
-    if (!started) {
-      started = true;
-      return cb();
-    }
-  }
-
-  if (watch) {
-    bundler.watch(200, bundle);
-  } else {
-    bundler.run(bundle);
-  }
-});
-
-// Build the app from source code
-gulp.task('build', ['clean'], function (cb) {
-  runSequence(['vendor', 'assets', 'images', 'pages', 'styles', 'bundle'], cb);
-});
-
-// Launch a lightweight HTTP Server
-gulp.task('serve', function (cb) {
-
-  watch = true;
-
-  runSequence('build', function () {
-    browserSync({
-      notify: false,
-      // Customize the BrowserSync console logging prefix
-      logPrefix: 'RSK',
-      // Run as an https by uncommenting 'https: true'
-      // Note: this uses an unsigned certificate which on first access
-      //       will present a certificate warning in the browser.
-      // https: true,
-      server: DEST
-    });
-
-    gulp.watch(src.assets, ['assets']);
-    gulp.watch(src.images, ['images']);
-    gulp.watch(src.pages, ['pages']);
-    gulp.watch(src.styles, ['styles']);
-    gulp.watch(DEST + '/**/*.*', function (file) {
-      browserSync.reload(path.relative(__dirname, file.path));
-    });
-    cb();
-  });
-});
-
-// Deploy to GitHub Pages
-gulp.task('deploy', function () {
-
-  // Remove temp folder
-  if (argv.clean) {
-    var os = require('os');
-    var path = require('path');
-    var repoPath = path.join(os.tmpdir(), 'tmpRepo');
-    $.util.log('Delete ' + $.util.colors.magenta(repoPath));
-    del.sync(repoPath, {force: true});
-  }
-
-  return gulp.src(DEST + '/**/*')
-    .pipe($.if('**/robots.txt', !argv.production ? $.replace('Disallow:', 'Disallow: /') : $.util.noop()))
-    .pipe($.ghPages({
-      remoteUrl: 'https://github.com/{name}/{name}.github.io.git',
-      branch: 'master'
-    }));
-});
-
-// Run PageSpeed Insights
-// Update `url` below to the public URL for your site
-gulp.task('pagespeed', pagespeed.bind(null, {
-  // By default, we use the PageSpeed Insights
-  // free (no API key) tier. You can use a Google
-  // Developer API key if you have one. See
-  // http://goo.gl/RkN0vE for info key: 'YOUR_API_KEY'
-  url: 'https://example.com',
-  strategy: 'mobile'
-}));
+*/

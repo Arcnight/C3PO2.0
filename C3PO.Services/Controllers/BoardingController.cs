@@ -25,10 +25,11 @@ namespace C3PO.Services.Controllers
             _svcLocator = Bootstrapper.InitializeServiceLocator();
         }
 
+        [Authorize]
         [HttpGet]
         public HttpResponseMessage Get(int id)
         {
-            return Web.CreateResponse<boarding>(Request, _svcLocator.GetInstance<IBoardingRepository>().Get(id));
+            return Web.CreateResponse(Request, _svcLocator.GetInstance<IBoardingRepository>().Get(id));
         }
     }
 }

@@ -9,9 +9,13 @@ using Microsoft.Owin.Cors;
 
 using Newtonsoft.Json;
 
+//using IdentityServer3.AccessTokenValidation;
+
 using C3PO.Services;
 using C3PO.Services.Handlers;
-using C3PO.Services.Controllers;
+
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OpenIdConnect;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -23,6 +27,23 @@ namespace C3PO.Services
         {
             // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
             //var name = typeof(BoardingController).FullName;
+
+
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = "Cookies"
+            });
+            app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
+            {
+                Authority = "https://localhost:44333/identity",
+                ClientId = "C3PO",
+                ResponseType = "id_token",
+                
+                SignInAsAuthenticationType = "Cookies"
+            });
+
+            app.UseCors(CorsOptions.AllowAll);
 
             var config = new HttpConfiguration();
 
@@ -52,7 +73,8 @@ namespace C3PO.Services
             //config.Routes.MapHttpRoute("ActionApi", "api/{controller}/{action}/{id}", new { id = RouteParameter.Optional });
             config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
 
-            app.UseCors(CorsOptions.AllowAll);
+            config.Filters.Add(new AuthorizeAttribute());
+
             app.UseWebApi(config);
         }
     }

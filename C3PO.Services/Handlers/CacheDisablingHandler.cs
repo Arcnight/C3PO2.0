@@ -23,6 +23,7 @@ namespace C3PO.Services.Handlers
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                 }
 
                 return task.Result;

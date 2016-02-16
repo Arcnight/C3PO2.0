@@ -27,7 +27,7 @@ namespace C3PO.Services
         {
             base.OnStart(args);
 
-            using (WebApp.Start<Startup>(url: "http://+:3030/"))
+            using (WebApp.Start<Startup>(url: "https://+:3300/"))
             {
                 Console.WriteLine("C3PO Web Service Started...");
                 Console.WriteLine(string.Empty);

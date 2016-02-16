@@ -1,0 +1,16 @@
+﻿{
+    "expose": [
+        {
+            "name": "C3PO",
+            "path": "./Resources/scripts/src/C3PO"
+        },
+        {
+            "name": "Security",
+            "path": "./Resources/scripts/src/security"
+        },
+        {
+            "name": "Home",
+            "path": "./Resources/scripts/src/home"
+        }
+    ]
+}
