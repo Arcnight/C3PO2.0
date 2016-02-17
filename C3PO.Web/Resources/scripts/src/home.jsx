@@ -1,18 +1,12 @@
 var React = require("react");
 
 var Home = React.createClass({
-    getInitialState: function () {
-        return {
-            isLoggedIn: false
-        };
-    },
-
-    componentWillUpdate: function () {
-        this.setState({ isLoggedIn: this.props.isLoggedIn });
+    propTypes: {
+        isLoggedIn: React.PropTypes.bool.isRequired
     },
 
     render: function () {
-        return !this.state.isLoggedIn ?
+        return !this.props.isLoggedIn ?
         (
             <div>Please login</div>
         ) :

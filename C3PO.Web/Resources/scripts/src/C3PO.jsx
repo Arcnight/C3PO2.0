@@ -18,7 +18,7 @@ var C3PO = React.createClass({
         return (
             <div>
                 <div>
-                    <Security isLoggedIn={ this.state.isLoggedIn } onLogin={ this.setLoginState } onLogout={ this.setLoginState } />
+                    <Security isLoggedIn={ this.state.isLoggedIn } callback={ this.setLoginState } />
                 </div>
                 <div>
                     <Home isLoggedIn={ this.state.isLoggedIn } />

@@ -8,7 +8,6 @@ namespace C3PO.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new Bundle("~/bundles/main").Include(
-                "~/Resources/scripts/app/xhr.min.js",
                 "~/Resources/scripts/build/dist/clientBundle.js"
             ));
 

@@ -1,86 +1,66 @@
-﻿var React = require('react');
+﻿var axios = require('axios');
+var React = require('react');
 var ReactForm = require('react-form-data');
 
 var Security = React.createClass({
     mixins: [ReactForm],
 
-    getInitialState: function () {
-        return {
-            isLoggedIn: false
-        };
+    propTypes: {
+        callback: React.PropTypes.func.isRequired,
+        isLoggedIn: React.PropTypes.bool.isRequired
     },
 
-    componentWillUpdate: function () {
-        this.updateLoginState(this.props.isLoggedIn);
-    },
+    login: function (e) {
+        e.preventDefault();
 
-    login: function () {
-        var security = this;
-        var formData = this.formData;
-
-        xhr.request({
-            method: 'GET',
-            data: formData,
-            uri: _rootUrl + 'api/account/login',
-            callback: function (err, response) {
-                if (!err)
-                {
-                    security.updateLoginState(true);
-
-                    security.props.onLogin && typeof security.props.onLogin == "function" && this.props.onLogin(true);
-                }
-                else
-                {
-                    alert(err);
-                }
-            }
+        axios
+        .get('/api/account/login', { data: this.formData })
+        .then(this.loginFromResponse)
+        .catch(function (response) {
+            alert(response);
         });
     },
 
     logout: function (e) {
-        var security = this;
-        var formData = this.formData;
-
         e.preventDefault();
 
-        xhr.request({
-            method: 'GET',
-            data: formData,
-            uri: _rootUrl + 'api/account/logout',
-            callback: function (err, response) {
-                if (!err)
-                {
-                    security.updateLoginState(false);
-
-                    security.props.onLogout && typeof security.props.onLogout == "function" && this.props.onLogout(false);
-                }
-                else
-                {
-                    alert(err);
-                }
-            }
+        axios
+        .get('/api/account/logout')
+        .then(this.logoutFromResponse)
+        .catch(function (response) {
+            alert(response);
         });
     },
 
+    loginFromResponse: function (response) {
+        this.props.callback(true);
+    },
+
+    logoutFromResponse: function (response) {
+        this.props.callback(false);
+    },
+
     render: function () {
-        return (
+        return !this.props.isLoggedIn ?
+        (
             <div>
                 <div>
                     <a>Login</a>
                 </div>
                 <div>
                     <form onSubmit={ this.login }>
-                        <input type="text" name="username" placeholder="Username" />
+                        <input type="text" name="userName" placeholder="Username" />
                         <input type="text" name="password" placeholder="Password" />
                         <input type="submit" value="login" />
                     </form>
                 </div>
             </div>
+        ) :
+        (
+            <div>
+                <input type="button" onClick={ this.logout } value="logout" />
+            </div>
         );
-    },
-
-    updateLoginState: function(loggedIn) {
-        this.setState({ isLoggedIn: loggedIn });
     }
 });
 
