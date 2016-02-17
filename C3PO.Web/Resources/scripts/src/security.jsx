@@ -14,8 +14,8 @@ var Security = React.createClass({
         e.preventDefault();
 
         axios
-        .get('/api/account/login', { data: this.formData })
-        .then(this.loginFromResponse)
+        .post('/api/account/login', this.formData)
+        .then(this.getLoginResponse)
         .catch(function (response) {
             alert(response);
         });
@@ -26,17 +26,17 @@ var Security = React.createClass({
 
         axios
         .get('/api/account/logout')
-        .then(this.logoutFromResponse)
+        .then(this.getLogoutResponse)
         .catch(function (response) {
             alert(response);
         });
     },
 
-    loginFromResponse: function (response) {
+    getLoginResponse: function (response) {
         this.props.callback(true);
     },
 
-    logoutFromResponse: function (response) {
+    getLogoutResponse: function (response) {
         this.props.callback(false);
     },
 
@@ -48,8 +48,8 @@ var Security = React.createClass({
                     <a>Login</a>
                 </div>
                 <div>
-                    <form onSubmit={ this.login }>
-                        <input type="text" name="userName" placeholder="Username" />
+                    <form onChange={ this.updateFormData } onSubmit={ this.login }>
+                        <input type="text" name="username" placeholder="Username" />
                         <input type="text" name="password" placeholder="Password" />
                         <input type="submit" value="login" />
                     </form>

@@ -2,6 +2,8 @@
 using System.Web.Http;
 using System.Net.Http;
 
+using C3PO.Web.Models;
+
 namespace C3PO.Web.Controllers
 {
     [RoutePrefix("api")]
@@ -16,9 +18,9 @@ namespace C3PO.Web.Controllers
             return response;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("account/login")]
-        public HttpResponseMessage Login([FromUri] string userName, [FromUri] string password)
+        public HttpResponseMessage Login([FromBody] UserCredentials creds)
         {
             var response = new HttpResponseMessage() { };
 
@@ -30,6 +32,11 @@ namespace C3PO.Web.Controllers
         public void Logout()
         {
             
+        }
+
+        bool AuthenticateUser(UserCredentials creds)
+        {
+            return true;
         }
     }
 }
