@@ -187,15 +187,19 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
+    <Content Include="index.html" />
     <Content Include="readme.txt" />
     <Content Include="Resources\css\app.css" />
+    <Content Include="Resources\css\shivIE.css" />
+    <None Include="Resources\scripts\app\main.jsx" />
     <Content Include="Resources\scripts\app\main.js" />
     <Content Include="Resources\scripts\babel.js" />
     <Content Include="Resources\scripts\build\dist\clientBundle.js" />
     <Content Include="Resources\scripts\build\dist\serverBundle.js" />
     <Content Include="Resources\scripts\react.js" />
+    <Content Include="Resources\scripts\src\auth.js" />
     <Content Include="Resources\scripts\src\home.jsx" />
-    <Content Include="Resources\scripts\src\security.jsx" />
+    <Content Include="Resources\scripts\src\pages\login.jsx" />
     <Content Include="Views\index.html" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -220,6 +224,18 @@
     <Content Include="Resources\scripts\src\C3PO.jsx" />
     <Content Include="package.json" />
     <None Include="reactServerConfig.json" />
+    <Content Include="Resources\scripts\src\pages\dashboard.jsx" />
+    <Content Include="Resources\scripts\src\pages\search.jsx" />
+    <Content Include="Resources\scripts\src\pages\dhowsearch.jsx" />
+    <Content Include="Resources\scripts\src\pages\mapsearch.jsx" />
+    <Content Include="Resources\scripts\src\pages\metrics.jsx" />
+    <Content Include="Resources\scripts\src\pages\vessel.jsx" />
+    <Content Include="Resources\scripts\src\pages\person.jsx" />
+    <Content Include="Resources\scripts\src\pages\company.jsx" />
+    <Content Include="Resources\scripts\src\pages\event.jsx" />
+    <Content Include="Resources\scripts\src\pages\links.jsx" />
+    <Content Include="Resources\scripts\src\pages\templates.jsx" />
+    <Content Include="Resources\scripts\src\pages\template.jsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -230,6 +246,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Resources\scripts\dist\" />
+    <Folder Include="Resources\scripts\src\components\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

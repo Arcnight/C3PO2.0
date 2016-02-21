@@ -5,12 +5,52 @@
             "path": "./Resources/scripts/src/C3PO"
         },
         {
-            "name": "Security",
-            "path": "./Resources/scripts/src/security"
+            "name": "Dashboard",
+            "path": "./Resources/scripts/src/pages/dashboard"
         },
         {
-            "name": "Home",
-            "path": "./Resources/scripts/src/home"
+            "name": "Search",
+            "path": "./Resources/scripts/src/pages/search"
+        },
+        {
+            "name": "DhowSearch",
+            "path": "./Resources/scripts/src/pages/dhowsearch"
+        },
+        {
+            "name": "MapSearch",
+            "path": "./Resources/scripts/src/pages/mapsearch"
+        },
+        {
+            "name": "Metrics",
+            "path": "./Resources/scripts/src/pages/metrics"
+        },
+        {
+            "name": "Event",
+            "path": "./Resources/scripts/src/pages/event"
+        },
+        {
+            "name": "Vessel",
+            "path": "./Resources/scripts/src/pages/vessel"
+        },
+        {
+            "name": "Person",
+            "path": "./Resources/scripts/src/pages/person"
+        },
+        {
+            "name": "Company",
+            "path": "./Resources/scripts/src/pages/company"
+        },
+        {
+            "name": "Links",
+            "path": "./Resources/scripts/src/pages/links"
+        },
+        {
+            "name": "Templates",
+            "path": "./Resources/scripts/src/pages/templates"
+        },
+        {
+            "name": "Template",
+            "path": "./Resources/scripts/src/pages/template"
         }
     ]
 }
