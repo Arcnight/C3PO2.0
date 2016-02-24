@@ -120,6 +120,8 @@ var gulpClientBundle = function () {
 
 gulp.task('client-build', function () { return gulpClientBundle(); });
 
+gulp.task('full-build', ['server-build', 'client-build']);
+
 //gulp.task('react', function () {
 //    return gulp.src(paths.src.jsx)
 //      .pipe(gulpReact())

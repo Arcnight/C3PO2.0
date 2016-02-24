@@ -14,6 +14,7 @@ namespace C3PO.Web
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AttributeRoutingConfig.Start(); 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ReactConfig.Configure();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }

@@ -1,6 +1,6 @@
 ﻿var axios = require('axios');
 
-module.exports = {
+const auth = {
     isLoggedIn: function () {
         return localStorage.isLoggedIn;
     },
@@ -39,6 +39,8 @@ module.exports = {
 
     onStateChange: function () {}
 };
+
+module.exports = auth;
 
 function DoCallbacks(success, callback1, callback2) {
     callback1 && typeof callback1 == 'function' && callback1(success);

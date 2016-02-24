@@ -1,8 +1,16 @@
 ﻿{
     "expose": [
         {
+            "name": "Main",
+            "path": "./Resources/scripts/src/main"
+        },
+        {
             "name": "C3PO",
-            "path": "./Resources/scripts/src/C3PO"
+            "path": "./Resources/scripts/src/pages/_layout"
+        },
+        {
+            "name": "Login",
+            "path": "./Resources/scripts/src/pages/login"
         },
         {
             "name": "Dashboard",
