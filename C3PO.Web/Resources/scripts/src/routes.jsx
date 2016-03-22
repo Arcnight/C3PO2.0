@@ -1,24 +1,41 @@
-﻿var Route = require('react-router').Route;
-var Redirect = require('react-router').Redirect;
-var IndexRoute = require('react-router').IndexRoute;
+﻿var React = require('react');
+var Router = require('react-router');
+var Route = Router.Route;
+var Redirect = Router.Redirect;
+var IndexRoute = Router.IndexRoute;
 
 var auth = require('./auth.js');
 
+var _layout = require('./layouts/_home.jsx');
+var dashboard = require('./pages/dashboard.jsx');
+var login = require('./pages/login.jsx');
+var search = require('./pages/search.jsx');
+var dhowsearch = require('./pages/dhowsearch.jsx');
+var mapsearch = require('./pages/mapsearch.jsx');
+var metrics = require('./pages/metrics.jsx');
+var event = require('./pages/event.jsx');
+var vessel = require('./pages/vessel.jsx');
+var person = require('./pages/person.jsx');
+var company = require('./pages/company.jsx');
+var links = require('./pages/links.jsx');
+var templates = require('./pages/templates.jsx');
+var template = require('./pages/template.jsx');
+
 const routes = (
-    <Route name="c3po" path="/" component={require('./pages/_layout.jsx')}>
-        <IndexRoute component={require('./pages/dashboard.jsx')} onEnter={requireAuth} />
-        <Route name="login" path="login" component={require('./pages/login.jsx')} />
-        <Route name="search" path="search" component={require('./pages/search.jsx')} onEnter={requireAuth} />
-        <Route name="dhowsearch" path="dhowsearch" component={require('./pages/dhowsearch.jsx')} onEnter={requireAuth} />
-        <Route name="mapsearch" path="mapsearch" component={require('./pages/mapsearch.jsx')} onEnter={requireAuth} />
-        <Route name="metrics" path="metrics" component={require('./pages/Metrics.jsx')} onEnter={requireAuth} />
-        <Route name="event" path="event(/:id)" component={require('./pages/event.jsx')} onEnter={requireAuth} />
-        <Route name="vessel" path="vessel(/:id)" component={require('./pages/vessel.jsx')} onEnter={requireAuth} />
-        <Route name="person" path="person(/:id)" component={require('./pages/person.jsx')} onEnter={requireAuth} />
-        <Route name="company" path="company(/:id)" component={require('./pages/company.jsx')} onEnter={requireAuth} />
-        <Route name="links" path="links" component={require('./pages/links.jsx')} onEnter={requireAuth} />
-        <Route name="templates" path="templates" component={require('./pages/templates.jsx')} onEnter={requireAuth} />
-        <Route name="template" path="template(/:id)" component={require('./pages/template.jsx')} onEnter={requireAuth} />
+    <Route name="c3po" path="/" component={_layout}>
+        <IndexRoute component={dashboard} onEnter={requireAuth} />
+        <Route path="login" component={login} />
+        <Route path="search" component={search} onEnter={requireAuth} />
+        <Route path="dhowsearch" component={dhowsearch} onEnter={requireAuth} />
+        <Route path="mapsearch" component={mapsearch} onEnter={requireAuth} />
+        <Route path="metrics" component={metrics} onEnter={requireAuth} />
+        <Route path="event(/:id)" component={event} onEnter={requireAuth} />
+        <Route path="vessel(/:id)" component={vessel} onEnter={requireAuth} />
+        <Route path="person(/:id)" component={person} onEnter={requireAuth} />
+        <Route path="company(/:id)" component={company} onEnter={requireAuth} />
+        <Route path="links" component={links} onEnter={requireAuth} />
+        <Route path="templates" component={templates} onEnter={requireAuth} />
+        <Route path="template(/:id)" component={template} onEnter={requireAuth} />
         <Redirect from='logout' to='login' />
     </Route>
 );

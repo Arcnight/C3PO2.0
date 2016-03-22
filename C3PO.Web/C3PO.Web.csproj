@@ -191,12 +191,8 @@
     <Content Include="readme.txt" />
     <Content Include="Resources\css\app.css" />
     <Content Include="Resources\css\shivIE.css" />
-    <None Include="Resources\scripts\src\main.jsx" />
-    <Content Include="Resources\scripts\app\main.js" />
-    <Content Include="Resources\scripts\babel.js" />
-    <Content Include="Resources\scripts\build\dist\clientBundle.js" />
-    <Content Include="Resources\scripts\build\dist\serverBundle.js" />
-    <Content Include="Resources\scripts\react.js" />
+    <None Include="Resources\scripts\src\client.jsx" />
+    <None Include="Resources\scripts\src\server.jsx" />
     <Content Include="Resources\scripts\src\auth.js" />
     <Content Include="Resources\scripts\src\pages\login_old.jsx" />
     <Content Include="Views\index.html" />
@@ -222,9 +218,8 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Index\Index.cshtml" />
-    <Content Include="Resources\scripts\src\pages\_layout.jsx" />
+    <Content Include="Resources\scripts\src\layouts\_home.jsx" />
     <Content Include="package.json" />
-    <None Include="reactServerConfig.json" />
     <Content Include="Resources\scripts\src\pages\dashboard.jsx" />
     <Content Include="Resources\scripts\src\pages\search.jsx" />
     <Content Include="Resources\scripts\src\pages\dhowsearch.jsx" />
@@ -248,7 +243,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Resources\scripts\dist\" />
     <Folder Include="Resources\scripts\src\components\" />
   </ItemGroup>
   <ItemGroup>
@@ -306,7 +300,7 @@
   <PropertyGroup>
     <PreBuildEvent>cd $(ProjectDir)
 
-gulp full-build</PreBuildEvent>
+gulp</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

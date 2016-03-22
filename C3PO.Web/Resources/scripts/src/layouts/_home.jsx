@@ -1,7 +1,10 @@
 ﻿var React = require('react');
+var shivIE = require('shivie8');
 var RouteLink = require('react-router').Link;
 
 var auth = require('../auth.js');
+
+shivIE(document);
 
 module.exports = React.createClass({
     getInitialState: function() {
