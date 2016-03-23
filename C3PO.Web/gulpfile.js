@@ -30,6 +30,10 @@ var config = {
             {
                 src: paths.src + 'client.jsx',
                 dest: 'client.js'
+            },
+            {
+                src: paths.src + 'server.jsx',
+                dest: 'server.js'
             }
             //,{
             //    src: src + '/javascript_app/test.coffee',

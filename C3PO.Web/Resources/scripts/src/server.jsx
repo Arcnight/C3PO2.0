@@ -1,5 +1,5 @@
-﻿var path = require('path');
-var app = require('express')();
+﻿var app = require('express')();
+var React = require('react');
 var Router = require('react-router');
 
 var routes = require('./routes.jsx');
@@ -14,7 +14,13 @@ app.use(function (req, res, next) {
 
     Router.create(context).run(function (Handler, state) {
         res.render('layout', {
-            reactHtml: React.renderToString(<Handler />)
+            reactHtml: '<!DOCTYPE html>' + React.renderToString(<Handler />)
         });
     });
 });
+
+//app.use((req, res) => {  
+//    Router.run(routes, req.path, (Root, state) => {
+//        res.send('<!DOCTYPE html>' + React.renderToString( <Root/> ));
+//    });
+//});

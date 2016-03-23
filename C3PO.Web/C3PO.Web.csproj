@@ -193,6 +193,8 @@
     <Content Include="Resources\css\shivIE.css" />
     <None Include="Resources\scripts\src\client.jsx" />
     <None Include="Resources\scripts\src\server.jsx" />
+    <Content Include="Resources\scripts\build\client.js" />
+    <Content Include="Resources\scripts\build\server.js" />
     <Content Include="Resources\scripts\src\auth.js" />
     <Content Include="Resources\scripts\src\pages\login_old.jsx" />
     <Content Include="Views\index.html" />
