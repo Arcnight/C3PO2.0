@@ -28,9 +28,9 @@ export function ForwardTo(location) {
  * Object.assign is not yet fully supported in all browsers, so we fallback to
  * a polyfill
  */
-export function Assign()
+export function Assign(initialState, finalState)
 {
-	return Object.assign || assign;
+	return (Object.assign || assign)({}, initialState, finalState);
 }
 
 /**

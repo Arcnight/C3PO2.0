@@ -10,7 +10,7 @@ const initialState = {
 
 const reducer = CreateReducer(initialState, {
     [userActions.LOGIN_USER_REQUEST]: (state, payload) => {
-        return Assign({}, state, {
+        return Assign(state, {
             'statusText': null,
             'isAuthenticating': true
         });
@@ -21,7 +21,7 @@ const reducer = CreateReducer(initialState, {
 
         console.log(userName + ' logged in');
 
-        return Assign({}, state, {
+        return Assign(state, {
             'userName': userName,
             'isAuthenticated': true,
             'isAuthenticating': false,
@@ -30,7 +30,7 @@ const reducer = CreateReducer(initialState, {
     },
 
     [userActions.LOGIN_USER_FAILURE]: (state, payload) => {
-        return Assign({}, state, {
+        return Assign(state, {
             'userName': null,
             'isAuthenticated': false,
             'isAuthenticating': false,
@@ -41,7 +41,7 @@ const reducer = CreateReducer(initialState, {
     [userActions.LOGOUT_USER]: (state, payload) => {
         console.log(state.username + ' logged out');
 
-        return Assign({}, state, {
+        return Assign(state, {
             'userName': null,
             'isAuthenticated': false,
             'statusText': 'You have been successfully logged out.'

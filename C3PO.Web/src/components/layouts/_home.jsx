@@ -1,13 +1,8 @@
-﻿import React, { Component } from 'react';
-import { Link } from 'react-router';
+﻿import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
 class Home extends Component {
-    componentWillMount() {
-//        auth.onChange = function (loggedIn) {
-//            this.setState({ isLoggedIn: loggedIn });
-//        };
-    }
-
     render() {
         return (
             <div>
@@ -24,16 +19,11 @@ class Home extends Component {
                 </div>
             </div>
         );
-
-        //return this.state.isLoggedIn ?
-        //(
-        //) :
-        //(
-        //    <div>
-        //        <Login />
-        //    </div>
-        //);
     }
 }
 
-export default Home;
+var mapStateToProps = function(state){
+    return { auth: state.auth };
+};
+
+export default connect(null)(Home);

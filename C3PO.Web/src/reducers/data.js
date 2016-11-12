@@ -7,15 +7,15 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-    [dataActionTypes.RECEIVE_PROTECTED_DATA]: (state = initialState, payload) => {
-        return Assign({}, state, {
+    [dataActionTypes.RECEIVE_PROTECTED_DATA]: (state, payload) => {
+        return Assign(state, {
             'data': payload.data,
             'isFetching': false
         });
     },
 
-    [dataActionTypes.FETCH_PROTECTED_DATA_REQUEST]: (state = initialState, payload) => {
-        return Assign({}, state, {
+    [dataActionTypes.FETCH_PROTECTED_DATA_REQUEST]: (state, payload) => {
+        return Assign(state, {
             'isFetching': true
         });
     }

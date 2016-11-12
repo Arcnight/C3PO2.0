@@ -51,14 +51,10 @@ component={ UserIsNotAuthenticated(login) }
 
 // Redirects to /login by default
 const UserIsAuthenticated = UserAuthWrapper({
+    redirectAction: push,
     authSelector: state => state.auth, // how to get the user state
     predicate: auth => auth.isAuthenticated,
     wrapperDisplayName: 'UserIsAuthenticated', // a nice name for this auth check
-    //redirectAction: push, // the redux action to dispatch for redirect
-    redirectAction: (newLoc) => (dispatch) => {
-        dispatch(push(newLoc));
-        //dispatch(addNotification({ message: 'Sorry, you are not an administrator' }));
-    }
 });
 
 const getRoutes = (
