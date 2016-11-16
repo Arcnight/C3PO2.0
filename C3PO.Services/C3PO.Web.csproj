@@ -174,7 +174,6 @@
     <Compile Include="Controllers\BoardingController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\Unity\ControllerActivator.cs" />
     <Compile Include="Controllers\Unity\UnityResolver.cs" />
     <Compile Include="Controllers\UserController.cs" />

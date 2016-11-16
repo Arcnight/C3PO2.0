@@ -3,7 +3,7 @@ using System.Linq;
 using System.Timers;
 using System.Collections.Concurrent;
 
-namespace C3PO.Services.Security
+namespace C3PO.Web.Security
 {
     class OnSessionTimeoutEventArgs : EventArgs
     {
