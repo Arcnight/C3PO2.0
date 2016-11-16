@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace C3PO.Services.Security
+namespace C3PO.Web.Security
 {
     public interface IAuthenticationConfig
     {

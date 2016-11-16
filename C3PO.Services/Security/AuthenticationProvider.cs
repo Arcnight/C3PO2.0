@@ -33,7 +33,7 @@ using PSIP.Services.Web.Security;
 using PSIP.Common.Helpers;
 using PSIP.Common.Logging;
 
-namespace C3PO.Services.Security
+namespace C3PO.Web.Security
 {
     internal class AuthenticationProvider : OAuthAuthorizationServerProvider
     {

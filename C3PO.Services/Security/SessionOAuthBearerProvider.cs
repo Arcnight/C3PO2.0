@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Practices.ServiceLocation;
 
-namespace C3PO.Services.Security
+namespace C3PO.Web.Security
 {
     internal class SessionOAuthBearerProvider : OAuthBearerAuthenticationProvider
     {

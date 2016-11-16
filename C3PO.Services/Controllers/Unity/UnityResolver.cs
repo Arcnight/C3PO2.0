@@ -4,7 +4,7 @@ using System.Web.Http.Dependencies;
 
 using Microsoft.Practices.Unity;
 
-namespace C3PO.Services.Controllers.Unity
+namespace C3PO.Web.Controllers.Unity
 {
     public class UnityResolver : IDependencyResolver
     {

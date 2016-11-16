@@ -19,19 +19,19 @@ using Newtonsoft.Json;
 
 //using IdentityServer3.AccessTokenValidation;
 
-using C3PO.Services;
-using C3PO.Services.Handlers;
-using C3PO.Services.Security;
-using C3PO.Services.Controllers.Unity;
+using C3PO.Web;
+using C3PO.Web.Handlers;
+using C3PO.Web.Security;
+using C3PO.Web.Controllers.Unity;
 
-using C3POJWTFormat = C3PO.Services.Security.JwtFormat;
+using C3POJWTFormat = C3PO.Web.Security.JwtFormat;
 
 //using Microsoft.Owin.Security.Cookies;
 //using Microsoft.Owin.Security.OpenIdConnect;
 
 [assembly: OwinStartup(typeof(Startup))]
 
-namespace C3PO.Services
+namespace C3PO.Web
 {
     public class Startup
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 
-namespace C3PO.Services.Handlers
+namespace C3PO.Web.Handlers
 {
     internal class SessionControllerHandler
     {

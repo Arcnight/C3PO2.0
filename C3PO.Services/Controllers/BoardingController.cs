@@ -14,7 +14,7 @@ using C3PO.Data.Interfaces;
 
 using C3PO.Utilities;
 
-namespace C3PO.Services.Controllers
+namespace C3PO.Web.Controllers
 {
     public class BoardingController : ApiController
     {

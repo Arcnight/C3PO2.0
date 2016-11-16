@@ -8,7 +8,7 @@ using OWINSecurity = Microsoft.Owin.Security;
 using Common.Logging;
 using IdentityModel.Tokens;
 
-namespace C3PO.Services.Security
+namespace C3PO.Web.Security
 {
     internal class JwtFormat : ISecureDataFormat<AuthenticationTicket>
     {

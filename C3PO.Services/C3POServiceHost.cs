@@ -3,7 +3,7 @@ using System.ServiceProcess;
 
 using Microsoft.Owin.Hosting;
 
-namespace C3PO.Services
+namespace C3PO.Web
 {
     public class C3POServiceHost : ServiceBase
     {

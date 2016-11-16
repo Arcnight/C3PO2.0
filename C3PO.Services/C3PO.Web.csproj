@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>C3PO</RootNamespace>
-    <AssemblyName>C3PO.Services</AssemblyName>
+    <AssemblyName>C3PO.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -198,17 +198,59 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="js\components\app.jsx" />
+    <None Include="js\components\layouts\_home.jsx" />
+    <None Include="js\components\pages\dashboard.jsx" />
+    <None Include="js\components\pages\event.jsx" />
+    <None Include="js\components\pages\login.jsx" />
+    <None Include="js\components\pages\search.jsx" />
+    <None Include="js\components\routes.jsx" />
+    <None Include="js\index.jsx" />
+    <None Include="js\templates\index.ejs" />
+    <None Include="package.json" />
     <None Include="packages.config" />
+    <None Include="js\_orig_scripts\client.jsx" />
+    <None Include="js\_orig_scripts\layouts\_home.jsx" />
+    <None Include="js\_orig_scripts\pages\company.jsx" />
+    <None Include="js\_orig_scripts\pages\dashboard.jsx" />
+    <None Include="js\_orig_scripts\pages\Default.jsx.exclude" />
+    <None Include="js\_orig_scripts\pages\dhowsearch.jsx" />
+    <None Include="js\_orig_scripts\pages\links.jsx" />
+    <None Include="js\_orig_scripts\pages\login.jsx" />
+    <None Include="js\_orig_scripts\pages\login_old.jsx.exclude" />
+    <None Include="js\_orig_scripts\pages\mapsearch.jsx" />
+    <None Include="js\_orig_scripts\pages\metrics.jsx" />
+    <None Include="js\_orig_scripts\pages\person.jsx" />
+    <None Include="js\_orig_scripts\pages\template.jsx" />
+    <None Include="js\_orig_scripts\pages\templates.jsx" />
+    <None Include="js\_orig_scripts\pages\vessel.jsx" />
+    <None Include="js\_orig_scripts\routes.jsx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="js\actions\auth.js" />
+    <Content Include="js\App.test.js" />
+    <Content Include="js\assets\App.css" />
+    <Content Include="js\assets\favicon.ico" />
+    <Content Include="js\assets\index.css" />
+    <Content Include="js\assets\logo.svg" />
+    <Content Include="js\constants\actiontypes\data.js" />
+    <Content Include="js\constants\actiontypes\user.js" />
+    <Content Include="js\constants\urls.js" />
+    <Content Include="js\reducers\auth.js" />
+    <Content Include="js\reducers\data.js" />
+    <Content Include="js\reducers\index.js" />
+    <Content Include="js\stores\auth.js" />
+    <Content Include="js\stores\index.js" />
+    <Content Include="js\stores\user.js" />
+    <Content Include="js\utils\httpMethods.js" />
+    <Content Include="js\utils\index.js" />
+    <Content Include="webpack.config.js" />
+    <Content Include="js\_orig_scripts\auth.js" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\C3PO.Models\C3PO.Data.csproj">
       <Project>{cbc70850-62d1-4eb8-b846-2d5ff7d8dc08}</Project>
       <Name>C3PO.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\C3PO.Utilities\C3PO.Utilities.csproj">
-      <Project>{faf7c33f-a115-4481-9036-222401d92872}</Project>
-      <Name>C3PO.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace C3PO.Services.Handlers
+namespace C3PO.Web.Handlers
 {
     internal class CacheDisablingHandler : DelegatingHandler
     {
