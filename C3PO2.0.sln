@@ -5,34 +5,11 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Data", "C3PO.Models\C3PO.Data.csproj", "{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Utilities", "C3PO.Utilities\C3PO.Utilities.csproj", "{FAF7C33F-A115-4481-9036-222401D92872}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Services", "C3PO.Services\C3PO.Services.csproj", "{780093AE-F8B2-4272-AADD-F2033B057268}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Web", "C3PO.Services\C3PO.Web.csproj", "{780093AE-F8B2-4272-AADD-F2033B057268}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Tests", "C3PO.Tests\C3PO.Tests.csproj", "{C6833625-DB80-4F69-8AC3-994D75237083}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Identity", "C3PO.Identity\C3PO.Identity.csproj", "{DB2EA378-108B-4AE6-A455-158EAB96494A}"
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C3PO.Web", "http://localhost:3210", "{CA8DDAC6-0A33-4768-B564-0920FD4334AA}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_3210"
-		Debug.AspNetCompiler.PhysicalPath = "C3PO.Web\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3210\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_3210"
-		Release.AspNetCompiler.PhysicalPath = "C3PO.Web\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_3210\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "C3PO.Web\"
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,10 +21,6 @@ Global
 		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAF7C33F-A115-4481-9036-222401D92872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAF7C33F-A115-4481-9036-222401D92872}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAF7C33F-A115-4481-9036-222401D92872}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAF7C33F-A115-4481-9036-222401D92872}.Release|Any CPU.Build.0 = Release|Any CPU
 		{780093AE-F8B2-4272-AADD-F2033B057268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{780093AE-F8B2-4272-AADD-F2033B057268}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{780093AE-F8B2-4272-AADD-F2033B057268}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,10 +33,6 @@ Global
 		{DB2EA378-108B-4AE6-A455-158EAB96494A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB2EA378-108B-4AE6-A455-158EAB96494A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB2EA378-108B-4AE6-A455-158EAB96494A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA8DDAC6-0A33-4768-B564-0920FD4334AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA8DDAC6-0A33-4768-B564-0920FD4334AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA8DDAC6-0A33-4768-B564-0920FD4334AA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA8DDAC6-0A33-4768-B564-0920FD4334AA}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
