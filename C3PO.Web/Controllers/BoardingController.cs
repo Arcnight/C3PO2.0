@@ -12,7 +12,7 @@ using Microsoft.Practices.ServiceLocation;
 using C3PO.Data.Models;
 using C3PO.Data.Interfaces;
 
-using C3PO.Utilities;
+using C3PO.Web.Utilities;
 
 namespace C3PO.Web.Controllers
 {

@@ -415,8 +415,6 @@ namespace C3PO.Web.Security
 
                                 owinContext.Set("authenticationResponse", new AuthenticationResponse()
                                 {
-                                    OperationNames = operationNames,
-                                    User = new UserProfileSimple(user, isInternalUser, roles, operations, roleOperations, attributes),
                                     token = _sessionManager.CreateSession(user.UserId, user.UserName, _serviceLocator.GetInstance<JwtFormat>().Protect(ticket), ticket.Properties.ExpiresUtc.Value)
                                 });
 

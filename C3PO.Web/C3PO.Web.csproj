@@ -197,57 +197,57 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="js\components\app.jsx" />
-    <None Include="js\components\layouts\_home.jsx" />
-    <None Include="js\components\pages\dashboard.jsx" />
-    <None Include="js\components\pages\event.jsx" />
-    <None Include="js\components\pages\login.jsx" />
-    <None Include="js\components\pages\search.jsx" />
-    <None Include="js\components\routes.jsx" />
-    <None Include="js\index.jsx" />
-    <None Include="js\templates\index.ejs" />
+    <None Include="jssrc\components\app.jsx" />
+    <None Include="jssrc\components\layouts\_home.jsx" />
+    <None Include="jssrc\components\pages\dashboard.jsx" />
+    <None Include="jssrc\components\pages\event.jsx" />
+    <None Include="jssrc\components\pages\login.jsx" />
+    <None Include="jssrc\components\pages\search.jsx" />
+    <None Include="jssrc\components\routes.jsx" />
+    <None Include="jssrc\index.jsx" />
+    <None Include="jssrc\templates\index.ejs" />
     <None Include="package.json" />
     <None Include="packages.config" />
-    <None Include="js\_orig_scripts\client.jsx" />
-    <None Include="js\_orig_scripts\layouts\_home.jsx" />
-    <None Include="js\_orig_scripts\pages\company.jsx" />
-    <None Include="js\_orig_scripts\pages\dashboard.jsx" />
-    <None Include="js\_orig_scripts\pages\Default.jsx.exclude" />
-    <None Include="js\_orig_scripts\pages\dhowsearch.jsx" />
-    <None Include="js\_orig_scripts\pages\links.jsx" />
-    <None Include="js\_orig_scripts\pages\login.jsx" />
-    <None Include="js\_orig_scripts\pages\login_old.jsx.exclude" />
-    <None Include="js\_orig_scripts\pages\mapsearch.jsx" />
-    <None Include="js\_orig_scripts\pages\metrics.jsx" />
-    <None Include="js\_orig_scripts\pages\person.jsx" />
-    <None Include="js\_orig_scripts\pages\template.jsx" />
-    <None Include="js\_orig_scripts\pages\templates.jsx" />
-    <None Include="js\_orig_scripts\pages\vessel.jsx" />
-    <None Include="js\_orig_scripts\routes.jsx" />
+    <None Include="jssrc\_orig_scripts\client.jsx" />
+    <None Include="jssrc\_orig_scripts\layouts\_home.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\company.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\dashboard.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\Default.jsx.exclude" />
+    <None Include="jssrc\_orig_scripts\pages\dhowsearch.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\links.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\login.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\login_old.jsx.exclude" />
+    <None Include="jssrc\_orig_scripts\pages\mapsearch.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\metrics.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\person.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\template.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\templates.jsx" />
+    <None Include="jssrc\_orig_scripts\pages\vessel.jsx" />
+    <None Include="jssrc\_orig_scripts\routes.jsx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="js\actions\auth.js" />
-    <Content Include="js\App.test.js" />
-    <Content Include="js\assets\App.css" />
-    <Content Include="js\assets\favicon.ico" />
-    <Content Include="js\assets\index.css" />
-    <Content Include="js\assets\logo.svg" />
-    <Content Include="js\constants\actiontypes\data.js" />
-    <Content Include="js\constants\actiontypes\user.js" />
-    <Content Include="js\constants\urls.js" />
-    <Content Include="js\reducers\auth.js" />
-    <Content Include="js\reducers\data.js" />
-    <Content Include="js\reducers\index.js" />
-    <Content Include="js\stores\auth.js" />
-    <Content Include="js\stores\index.js" />
-    <Content Include="js\stores\user.js" />
-    <Content Include="js\utils\httpMethods.js" />
-    <Content Include="js\utils\index.js" />
+    <Content Include="jssrc\actions\auth.js" />
+    <Content Include="jssrc\App.test.js" />
+    <Content Include="jssrc\assets\App.css" />
+    <Content Include="jssrc\assets\favicon.ico" />
+    <Content Include="jssrc\assets\index.css" />
+    <Content Include="jssrc\assets\logo.svg" />
+    <Content Include="jssrc\constants\actiontypes\data.js" />
+    <Content Include="jssrc\constants\actiontypes\user.js" />
+    <Content Include="jssrc\constants\urls.js" />
+    <Content Include="jssrc\reducers\auth.js" />
+    <Content Include="jssrc\reducers\data.js" />
+    <Content Include="jssrc\reducers\index.js" />
+    <Content Include="jssrc\stores\auth.js" />
+    <Content Include="jssrc\stores\index.js" />
+    <Content Include="jssrc\stores\user.js" />
+    <Content Include="jssrc\utils\httpMethods.js" />
+    <Content Include="jssrc\utils\index.js" />
     <Content Include="webpack.config.js" />
-    <Content Include="js\_orig_scripts\auth.js" />
+    <Content Include="jssrc\_orig_scripts\auth.js" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\C3PO.Models\C3PO.Data.csproj">
+    <ProjectReference Include="..\C3PO.Data\C3PO.Data.csproj">
       <Project>{cbc70850-62d1-4eb8-b846-2d5ff7d8dc08}</Project>
       <Name>C3PO.Data</Name>
     </ProjectReference>

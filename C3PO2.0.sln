@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Data", "C3PO.Models\C3PO.Data.csproj", "{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Web", "C3PO.Services\C3PO.Web.csproj", "{780093AE-F8B2-4272-AADD-F2033B057268}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Tests", "C3PO.Tests\C3PO.Tests.csproj", "{C6833625-DB80-4F69-8AC3-994D75237083}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Identity", "C3PO.Identity\C3PO.Identity.csproj", "{DB2EA378-108B-4AE6-A455-158EAB96494A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Data", "C3PO.Data\C3PO.Data.csproj", "{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C3PO.Web", "C3PO.Web\C3PO.Web.csproj", "{780093AE-F8B2-4272-AADD-F2033B057268}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{780093AE-F8B2-4272-AADD-F2033B057268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{780093AE-F8B2-4272-AADD-F2033B057268}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{780093AE-F8B2-4272-AADD-F2033B057268}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{780093AE-F8B2-4272-AADD-F2033B057268}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C6833625-DB80-4F69-8AC3-994D75237083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C6833625-DB80-4F69-8AC3-994D75237083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6833625-DB80-4F69-8AC3-994D75237083}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +25,14 @@ Global
 		{DB2EA378-108B-4AE6-A455-158EAB96494A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB2EA378-108B-4AE6-A455-158EAB96494A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB2EA378-108B-4AE6-A455-158EAB96494A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC70850-62D1-4EB8-B846-2D5FF7D8DC08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{780093AE-F8B2-4272-AADD-F2033B057268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{780093AE-F8B2-4272-AADD-F2033B057268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{780093AE-F8B2-4272-AADD-F2033B057268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{780093AE-F8B2-4272-AADD-F2033B057268}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
