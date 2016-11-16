@@ -1,9 +1,9 @@
-var webpack = require('webpack');
 var path = require('path');
+var webpack = require('webpack');
 var HtmlWebPackPlugin = require('html-webpack-plugin');
 
-var BUILD_DIR = path.resolve(__dirname, 'build');
-var APP_DIR = path.resolve(__dirname, 'src');
+var APP_DIR = path.resolve(__dirname, 'jssrc');
+var BUILD_DIR = path.resolve(__dirname, 'jsbuild');
 
 var config = {
     entry: APP_DIR + '/index.jsx',
@@ -18,7 +18,7 @@ var config = {
     })],
     devtool: 'source-map',
     devServer: {
-        contentBase: 'build'
+        contentBase: 'jsbuild'
     },
     module: {
         loaders: [
