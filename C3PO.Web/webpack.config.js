@@ -6,7 +6,7 @@ var APP_DIR = path.resolve(__dirname, 'jssrc');
 var BUILD_DIR = path.resolve(__dirname, 'jsbuild');
 
 var config = {
-    entry: APP_DIR + '/index.jsx',
+    entry: APP_DIR + '/client.jsx',
     output: {
         path: BUILD_DIR,
         filename: '[name].[hash].js'

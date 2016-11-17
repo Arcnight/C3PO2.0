@@ -238,6 +238,7 @@
     <Content Include="jssrc\reducers\auth.js" />
     <Content Include="jssrc\reducers\data.js" />
     <Content Include="jssrc\reducers\index.js" />
+    <None Include="jssrc\server.jsx" />
     <Content Include="jssrc\stores\auth.js" />
     <Content Include="jssrc\stores\index.js" />
     <Content Include="jssrc\stores\user.js" />
