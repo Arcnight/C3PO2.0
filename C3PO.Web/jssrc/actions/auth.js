@@ -1,10 +1,10 @@
 ﻿import appCache from 'store';
 import { push } from 'react-router-redux';
 
-import { AnyNullElements } from '../utils';
-import { get, post } from '../utils/httpMethods';
-import { siteURL, apiURL } from '../constants/urls';
-import userActions from '../constants/actiontypes/user';
+import { AnyNullElements } from 'Utils';
+import { get, post } from 'Utils/httpMethods';
+import { siteURL, apiURL } from 'Constants/urls';
+import userActions from 'Constants/actiontypes/user';
 
 export const sessionInfo = {
 	isLoggedIn: () => { return !!appCache.get('token'); }
@@ -12,7 +12,11 @@ export const sessionInfo = {
 
 /* action creators */
 
-export function LoginSuccess(token, username) {
+export function LoginSuccess(response) {
+    // Parse response from server and get token
+
+
+    let token = 'jkl;jfskl;a';
 	appCache.set('token', token);
 
 	return {
@@ -85,26 +89,19 @@ export function LoginUser(username, password, redirectUrl) {
 		//dispatch(<animation event>)
 
 		/*
-		post(apiURL.LOGIN_URL, formData)
+		*/
+	    post(apiURL.LOGIN_URL, {
+	        UserName: username,
+	        Password: password
+	    })
 		.then((response) => {
-			// Parse response from server and get token
-		    dispatch(LoginResult(true));
-		    
+		    dispatch(LoginSuccess(response));
+
 		    //dispatch(<stop animation event>)
 
-		    ForwardTo(siteURL.DASHBOARD_URL);
+		    dispatch(push(redirectUrl));
 		})
-		.catch((response) => {
-			console.log('login failed');
-			dispatch(LoginResult(false));
-		    alert(response);
-		});
-		*/
-
-		dispatch(LoginSuccess('jkl;fdsjk;lfa', username));
-
-		console.log(redirectUrl);
-		dispatch(push(redirectUrl));
+		.catch((response) => { LoginFailure({ response: response }) });
 	}
 }
 

@@ -5,9 +5,9 @@ import ReactDOM from 'react-dom/server';
 import RouterContext from 'react-router/lib/RouterContext';
 import createHistory from 'react-router/lib/createMemoryHistory';
 
-import routes from 'Routes';
-import { Html } from 'Components';
-import configureStore from 'Store';
+import routes from 'Components/routes.jsx';
+import { Html } from 'Containers/html.jsx';
+import { provider, store } from 'Components';
 
 export function renderView(callback, path, model, viewBag) {
     const _result = {
@@ -35,6 +35,7 @@ export function renderView(callback, path, model, viewBag) {
 
                 _result.status = notFound ? 404 : 200;
 
+/*
                 const store = configureStore(_initialState, history);
 
                 const component =
@@ -43,8 +44,9 @@ export function renderView(callback, path, model, viewBag) {
                         <RouterContext {...renderProps} />
                     </Provider>
                 );
+*/
 
-                _result.html = ReactDOM.renderToString(<Html component={component} store={store} />);
+                _result.html = ReactDOM.renderToString(<Html component={provider} store={store} />);
                 _result.html = '<!DOCTYPE html>${_result.html}';
             } else {
                 _result.status = 404;

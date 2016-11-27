@@ -3,13 +3,9 @@ import { push } from 'react-router-redux';
 import { Route, IndexRoute } from 'react-router';
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 
-import _layout from './layouts/_home.jsx';
-
-import { siteURL } from '../constants/urls';
-
-import dashboard from './pages/dashboard.jsx';
-import search from './pages/search.jsx';
-import event from './pages/event.jsx';
+import { siteURL } from 'Constants/urls.js';
+import { event, search, dashboard } from './pages';
+import authenticated from 'Containers/authenticated.jsx';
 /*
 import dhowsearch from'./pages/dhowsearch';
 import mapsearch from'./pages/mapsearch';
@@ -57,12 +53,12 @@ const UserIsAuthenticated = UserAuthWrapper({
     wrapperDisplayName: 'UserIsAuthenticated', // a nice name for this auth check
 });
 
-const getRoutes = (
-    <Route component={ UserIsAuthenticated(_layout) }>
+const routes = (
+    <Route component={ UserIsAuthenticated(authenticated) }>
         <IndexRoute component={ dashboard } />
         <Route path="search" component={ search } />
         <Route path="event(/:id)" component={ event } />
     </Route>
 );
 
-export default getRoutes;
+export default routes;

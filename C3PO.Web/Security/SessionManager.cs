@@ -3,6 +3,12 @@ using System.Linq;
 using System.Timers;
 using System.Collections.Concurrent;
 
+using Serilog;
+
+using C3PO.Web.Security.Interfaces;
+
+using C3PO.Utilities;
+
 namespace C3PO.Web.Security
 {
     class OnSessionTimeoutEventArgs : EventArgs
@@ -105,7 +111,7 @@ namespace C3PO.Web.Security
 
     public class SessionManager : ISessionManager
     {
-        ILog _logger;
+        ILogger _logger;
         static readonly object _globalSessionRefreshLock = new object();
         ConcurrentDictionary<string, Session> _sessions = new ConcurrentDictionary<string, Session>();
         ConcurrentDictionary<string, SessionRefreshLock> _sessionRefreshLocks = new ConcurrentDictionary<string, SessionRefreshLock>();
@@ -130,7 +136,7 @@ namespace C3PO.Web.Security
         {
             SessionLifetime = sessionLifetime;
 
-            _logger = LogManager.GetCurrentClassLogger();
+            _logger = Logging.CreateLogger();
         }
 
         /// <summary>Creates a session for a user.</summary>
@@ -144,7 +150,7 @@ namespace C3PO.Web.Security
 
             var session = AddNewSession(userId, userName, accessToken, SessionLifetime, expiresUtc);
 
-            _logger.InfoFormat("Session created for {0} at {1:MM/dd/yyyy HH:mm:ss} UTC", userName, DateTime.UtcNow);
+            _logger.Information(string.Format("Session created for {0} at {1:MM/dd/yyyy HH:mm:ss} UTC", userName, DateTime.UtcNow));
 
             return session.SessionId;
         }
@@ -168,7 +174,7 @@ namespace C3PO.Web.Security
                 {
                     sessionToTerminate.Stop();
 
-                    _logger.InfoFormat("Session terminated for {0} at {1:MM/dd/yyyy HH:mm:ss} UTC", sessionToTerminate.UserName, DateTime.UtcNow);
+                    _logger.Information(string.Format("Session terminated for {0} at {1:MM/dd/yyyy HH:mm:ss} UTC", sessionToTerminate.UserName, DateTime.UtcNow));
 
                     SessionRefreshLock sessionRefreshLock;
 
@@ -206,7 +212,7 @@ namespace C3PO.Web.Security
                     }
                 }
 
-                _logger.InfoFormat("Session refreshed for {0} at {1:MM/dd/yyyy HH:mm:ss} UTC", userName, DateTime.UtcNow);
+                _logger.Information(string.Format("Session refreshed for {0} at {1:MM/dd/yyyy HH:mm:ss} UTC", userName, DateTime.UtcNow));
             }
         }
 
@@ -269,7 +275,7 @@ namespace C3PO.Web.Security
                 {
                     expiredSession.Stop();
 
-                    _logger.InfoFormat("Session timed out for {0} at {1:MM/dd/yyyy HH:mm:ss} UTC", expiredSession.UserName, DateTime.UtcNow);
+                    _logger.Information(string.Format("Session timed out for {0} at {1:MM/dd/yyyy HH:mm:ss} UTC", expiredSession.UserName, DateTime.UtcNow));
 
                     SessionRefreshLock sessionRefreshLock;
 

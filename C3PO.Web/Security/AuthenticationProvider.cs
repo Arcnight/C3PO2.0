@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using System.Data.Entity;
+//using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -11,27 +11,33 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Security.Cryptography.X509Certificates;
 
+using Microsoft.Practices.ServiceLocation;
+
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 
-using Microsoft.Practices.ServiceLocation;
+using C3PO.Utilities;
+using C3PO.Web.Utilities;
+using C3PO.Web.Security.Interfaces;
 
-using Common.Logging;
+//using Microsoft.Practices.ServiceLocation;
 
-using PSIP.Data.Models;
-using PSIP.Data.EntityFramework;
-using PSIP.Data.Web.SimplifiedModels;
+//using Common.Logging;
 
-using PSIP.Security;
-using PSIP.Security.Web;
-using PSIP.Security.Helpers;
-using PSIP.Security.Interfaces;
+//using PSIP.Data.Models;
+//using PSIP.Data.EntityFramework;
+//using PSIP.Data.Web.SimplifiedModels;
 
-using PSIP.Services.Web.Helpers;
-using PSIP.Services.Web.Security;
+//using PSIP.Security;
+//using PSIP.Security.Web;
+//using PSIP.Security.Helpers;
+//using PSIP.Security.Interfaces;
 
-using PSIP.Common.Helpers;
-using PSIP.Common.Logging;
+//using PSIP.Services.Web.Helpers;
+//using PSIP.Services.Web.Security;
+
+//using PSIP.Common.Helpers;
+//using PSIP.Common.Logging;
 
 namespace C3PO.Web.Security
 {
@@ -44,7 +50,7 @@ namespace C3PO.Web.Security
 
         public AuthenticationProvider()
         {
-            _serviceLocator = ServiceLocator.Current;
+            _serviceLocator = IoC.ServiceLocator;
             _sessionManager = _serviceLocator.GetInstance<ISessionManager>();
         }
 
@@ -157,244 +163,184 @@ namespace C3PO.Web.Security
 
         public override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var logger = LogManager.GetCurrentClassLogger();
-            var roleService = ServiceLocator.Current.GetInstance<IRoleService>();
-            var auditLogger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            var logger = Logging.CreateLogger();
+            //var roleService = IoC.ServiceLocator.GetInstance<IRoleService>();
+            //var auditLogger = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
             logger.Debug("Entering GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)");
 
             var loginValid = true;
             var userIp = "unknown";
-            var isInternalUser = false;
+            var userId = 1;
+            var userName = context.UserName;
+            var password = context.Password;
             var errMessage = string.Empty;
 
-            X509Certificate2 clientCert = null;
+            //X509Certificate2 clientCert = null;
 
-            var certKvp = context.OwinContext.Request.Headers.SingleOrDefault(x => x.Key == "X-ARR-ClientCert");
+            //var certKvp = context.OwinContext.Request.Headers.SingleOrDefault(x => x.Key == "X-ARR-ClientCert");
 
-            if (certKvp.Value == null || !certKvp.Value.Any())
-            {
-                errMessage = "No certificate found in header of request";
-                loginValid = false;
-                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            }
-            else
-            {
-                clientCert = Methods.GetCertificateFromString(certKvp.Value.First());
-            }
+            //if (certKvp.Value == null || !certKvp.Value.Any())
+            //{
+            //    errMessage = "No certificate found in header of request";
+            //    loginValid = false;
+            //    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            //}
+            //else
+            //{
+            //    clientCert = Methods.GetCertificateFromString(certKvp.Value.First());
+            //}
 
             if (loginValid)
             {
-                using (var dbContext = PsipDbContextFactory.Current)
-                {
-                    try
-                    {
-                        var subjectCN = clientCert.GetSubjectCN();
+                //using (var dbContext = PsipDbContextFactory.Current)
+                //{
+                //    try
+                //    {
+                //        var subjectCN = clientCert.GetSubjectCN();
 
-                        //var user = Users.SingleOrDefault(x => x.Username == context.UserName);
-                        var user = dbContext.Users.Include(u => u.UserProfileInternal).Include(u => u.UserProfileExternal).FirstOrDefault(u => u.UserName == subjectCN);
+                //        //var user = Users.SingleOrDefault(x => x.Username == context.UserName);
+                //        var user = dbContext.Users.Include(u => u.UserProfileInternal).Include(u => u.UserProfileExternal).FirstOrDefault(u => u.UserName == subjectCN);
 
-                        if (user == null)
-                        {
-                            log4net.LogicalThreadContext.Properties["UserId"] = "user with username " + context.UserName;
+                //        if (user == null)
+                //        {
+                //            log4net.LogicalThreadContext.Properties["UserId"] = "user with username " + context.UserName;
 
-                            errMessage = "Could not locate user with username " + context.UserName;
-                            logger.Error(errMessage);
-                            logger.Debug("Exiting GrantResourceOwnerCredentials");
+                //            errMessage = "Could not locate user with username " + context.UserName;
+                //            logger.Error(errMessage);
+                //            logger.Debug("Exiting GrantResourceOwnerCredentials");
 
-                            loginValid = false;
-                            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                        }
-                        else
-                        {
-                            log4net.LogicalThreadContext.Properties["UserId"] = StringHelper.GetPersonFullname(user.FirstName, user.MiddleName, user.LastName);
+                //            loginValid = false;
+                //            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                //        }
+                //        else
+                //        {
+                //            log4net.LogicalThreadContext.Properties["UserId"] = StringHelper.GetPersonFullname(user.FirstName, user.MiddleName, user.LastName);
 
-                            isInternalUser = (user.InternalProfileId ?? 0) > 0;
+                //            isInternalUser = (user.InternalProfileId ?? 0) > 0;
 
-                            var authUser = new AuthenticatedUser(subjectCN, user, isInternalUser);
+                //            var authUser = new AuthenticatedUser(subjectCN, user, isInternalUser);
 
-                            logger.Debug(string.Format("{0}, {1}, {2}, {3}, {4}", authUser.CacId, authUser.CacFirstName, authUser.CacLastName, user.UserName, user.UserId));
+                //            logger.Debug(string.Format("{0}, {1}, {2}, {3}, {4}", authUser.CacId, authUser.CacFirstName, authUser.CacLastName, user.UserName, user.UserId));
 
-                            if (user.AccountLocked)
-                            {
-                                errMessage = string.Format("User account is locked out for userId: {0}", user.UserId);
-                                logger.Error(errMessage);
-                                logger.Debug("Exiting GrantResourceOwnerCredentials");
+                //            if (user.AccountLocked)
+                //            {
+                //                errMessage = string.Format("User account is locked out for userId: {0}", user.UserId);
+                //                logger.Error(errMessage);
+                //                logger.Debug("Exiting GrantResourceOwnerCredentials");
 
-                                auditLogger.AuditFormat("Attempt to access locked account from IP <{0}>", userIp);
+                //                auditLogger.AuditFormat("Attempt to access locked account from IP <{0}>", userIp);
 
-                                loginValid = false;
+                //                loginValid = false;
 
-                                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                                //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
-                            }
+                //                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                //                //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+                //            }
 
-                            //if (loginValid && _verifyPassword && !string.IsNullOrEmpty(context.Password))
-                            //{
-                            //    if (!Methods.DoPasswordsMatch(user.PasswordString, context.Password))
-                            //    {
-                            //        TimeSpan oneHr = new TimeSpan(0, 1, 0, 0);
-                            //        if (user.FirstAttemptDate != null && DateTime.UtcNow - user.FirstAttemptDate < oneHr &&
-                            //            user.SecondAttemptDate != null && DateTime.UtcNow - user.SecondAttemptDate < oneHr &&
-                            //            user.SecondAttemptDate > user.FirstAttemptDate)
-                            //        {
-                            //            user.AccountLocked = true;
-                            //        }
-                            //        else if ((user.FirstAttemptDate == null || DateTime.UtcNow - user.FirstAttemptDate > oneHr) && (user.SecondAttemptDate == null || DateTime.UtcNow - user.SecondAttemptDate > oneHr))
-                            //        {
-                            //            user.FirstAttemptDate = DateTime.UtcNow;
+                //            //if (loginValid && _verifyPassword && !string.IsNullOrEmpty(context.Password))
+                //            //{
+                //            //    if (!Methods.DoPasswordsMatch(user.PasswordString, context.Password))
+                //            //    {
+                //            //        TimeSpan oneHr = new TimeSpan(0, 1, 0, 0);
+                //            //        if (user.FirstAttemptDate != null && DateTime.UtcNow - user.FirstAttemptDate < oneHr &&
+                //            //            user.SecondAttemptDate != null && DateTime.UtcNow - user.SecondAttemptDate < oneHr &&
+                //            //            user.SecondAttemptDate > user.FirstAttemptDate)
+                //            //        {
+                //            //            user.AccountLocked = true;
+                //            //        }
+                //            //        else if ((user.FirstAttemptDate == null || DateTime.UtcNow - user.FirstAttemptDate > oneHr) && (user.SecondAttemptDate == null || DateTime.UtcNow - user.SecondAttemptDate > oneHr))
+                //            //        {
+                //            //            user.FirstAttemptDate = DateTime.UtcNow;
 
-                            //            auditLogger.AuditFormat("User from IP <{0}> had first invalid login attempt", userIp);
-                            //        }
-                            //        else if (DateTime.UtcNow - user.FirstAttemptDate > oneHr && DateTime.UtcNow - user.SecondAttemptDate < oneHr)
-                            //        {
-                            //            user.FirstAttemptDate = user.SecondAttemptDate;
-                            //            user.SecondAttemptDate = DateTime.UtcNow;
+                //            //            auditLogger.AuditFormat("User from IP <{0}> had first invalid login attempt", userIp);
+                //            //        }
+                //            //        else if (DateTime.UtcNow - user.FirstAttemptDate > oneHr && DateTime.UtcNow - user.SecondAttemptDate < oneHr)
+                //            //        {
+                //            //            user.FirstAttemptDate = user.SecondAttemptDate;
+                //            //            user.SecondAttemptDate = DateTime.UtcNow;
 
-                            //            auditLogger.AuditFormat("User from IP <{0}> had second invalid login attempt", userIp);
-                            //        }
-                            //        else if (DateTime.UtcNow - user.FirstAttemptDate < oneHr)
-                            //        {
-                            //            user.SecondAttemptDate = DateTime.UtcNow;
+                //            //            auditLogger.AuditFormat("User from IP <{0}> had second invalid login attempt", userIp);
+                //            //        }
+                //            //        else if (DateTime.UtcNow - user.FirstAttemptDate < oneHr)
+                //            //        {
+                //            //            user.SecondAttemptDate = DateTime.UtcNow;
 
-                            //            auditLogger.AuditFormat("User from IP <{0}> had second invalid login attempt", userIp);
-                            //        }
+                //            //            auditLogger.AuditFormat("User from IP <{0}> had second invalid login attempt", userIp);
+                //            //        }
 
-                            //        dbContext.SaveChanges(); //need to return forbbiden here too if tries = 3
+                //            //        dbContext.SaveChanges(); //need to return forbbiden here too if tries = 3
 
-                            //        if (user.AccountLocked)
-                            //        {
-                            //            errMessage = string.Format("User account is now locked out for userId: {0}", user.UserId);
+                //            //        if (user.AccountLocked)
+                //            //        {
+                //            //            errMessage = string.Format("User account is now locked out for userId: {0}", user.UserId);
 
-                            //            logger.Info(errMessage);
-                            //            logger.Debug("Exiting AuthenticateLocalAsync");
+                //            //            logger.Info(errMessage);
+                //            //            logger.Debug("Exiting AuthenticateLocalAsync");
 
-                            //            auditLogger.AuditFormat("User from IP <{0}> went over login attempts in one hour and account has been locked", userIp);
+                //            //            auditLogger.AuditFormat("User from IP <{0}> went over login attempts in one hour and account has been locked", userIp);
 
-                            //            context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                            //            //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
-                            //        }
-                            //        else
-                            //        {
-                            //            errMessage = string.Format("Incorrect Password for userId: {0}", user.UserId);
+                //            //            context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                //            //            //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+                //            //        }
+                //            //        else
+                //            //        {
+                //            //            errMessage = string.Format("Incorrect Password for userId: {0}", user.UserId);
 
-                            //            logger.Info(errMessage);
-                            //            logger.Debug("Exiting GrantResourceOwnerCredentials");
+                //            //            logger.Info(errMessage);
+                //            //            logger.Debug("Exiting GrantResourceOwnerCredentials");
 
-                            //            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                            //            //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized));
-                            //        }
+                //            //            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                //            //            //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized));
+                //            //        }
 
-                            //        loginValid = false;
-                            //    }
-                            //}
+                //            //        loginValid = false;
+                //            //    }
+                //            //}
 
                             var owinContext = context.OwinContext;
 
-                            string[] operationNames = null;
-                            List<ClearanceAttribute> attributes = null;
-                            List<SecurableActivitySimple> roles = null;
-                            List<SecurableActivitySimple> operations = null;
-                            List<SecurableActivitySimple> roleOperations = null;
+                            //if (loginValid)
+                            //{
+                            //    try
+                            //    {
+                            //        roles = roleService.GetRoleActivitiesFor(user).Select(r => SecurableActivityHelper.ConvertSecurableActivityToSimple(r)).ToList();
+                            //    }
+                            //    catch (Exception ex)
+                            //    {
+                            //        loginValid = false;
+                            //        errMessage = string.Format("Could not find roles for userId: {0}", user.UserId);
+
+                            //        logger.Error("Unable to retrieve user's roles", ex);
+                            //        logger.Debug("Exiting GrantResourceOwnerCredentials");
+
+                            //        auditLogger.AuditFormat("Could not find roles for user from IP <{0}>", userIp);
+
+                            //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                            //        //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
+                            //    }
+                            //}
 
                             if (loginValid)
                             {
-                                try
-                                {
-                                    operationNames = roleService.GetOperationsFor(user).Select(o => o.ToString()).ToArray();
-                                }
-                                catch (Exception ex)
-                                {
-                                    loginValid = false;
-                                    errMessage = string.Format("Unable to retrieve user's security operations for userId: {0}", user.UserId);
+                                ////if success
+                                //user.NumberTries = 0;
+                                //user.FirstAttemptDate = null;
+                                //user.SecondAttemptDate = null;
+                                //user.CurrentLoginDate = DateTime.UtcNow;
+                                //user.LastLoginDate = user.CurrentLoginDate;
 
-                                    logger.Error("Unable to retrieve user's security operations", ex);
-                                    logger.Debug("Exiting GrantResourceOwnerCredentials");
+                                //dbContext.SaveChanges();
 
-                                    auditLogger.AuditFormat("Could not find security operations for user from IP <{0}>", userIp);
+                                ////auditLogger.AuditFormat("User logged in from IP <{0}>", userIp);
 
-                                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                                    //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
-                                }
-
-                                try
-                                {
-                                    roles = roleService.GetRoleActivitiesFor(user).Select(r => SecurableActivityHelper.ConvertSecurableActivityToSimple(r)).ToList();
-                                }
-                                catch (Exception ex)
-                                {
-                                    loginValid = false;
-                                    errMessage = string.Format("Could not find roles for userId: {0}", user.UserId);
-
-                                    logger.Error("Unable to retrieve user's roles", ex);
-                                    logger.Debug("Exiting GrantResourceOwnerCredentials");
-
-                                    auditLogger.AuditFormat("Could not find roles for user from IP <{0}>", userIp);
-
-                                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                                    //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
-                                }
-
-                                try
-                                {
-                                    operations = roleService.GetOperationActivitiesFor(user).Select(o => SecurableActivityHelper.ConvertSecurableActivityToSimple(o)).ToList();
-                                    roleOperations = roleService.GetRoleOperationActivitiesFor(user).Select(o => SecurableActivityHelper.ConvertSecurableActivityToSimple(o)).ToList();
-                                }
-                                catch (Exception ex)
-                                {
-                                    loginValid = false;
-                                    errMessage = string.Format("Could not find operations for userId: {0}", user.UserId);
-
-                                    logger.Error("Unable to retrieve user's operations", ex);
-                                    logger.Debug("Exiting GrantResourceOwnerCredentials");
-
-                                    auditLogger.AuditFormat("Could not find operations for user from IP <{0}>", userIp);
-
-                                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                                    //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
-                                }
-
-                                try
-                                {
-                                    attributes = dbContext.ClearanceAttributes.OrderBy(a => a.ClearanceAttributeId).ToList();
-                                }
-                                catch (Exception ex)
-                                {
-                                    loginValid = false;
-                                    errMessage = string.Format("Could not create response object for userId: {0}", user.UserId);
-
-                                    logger.Error("Unable to create response", ex);
-                                    logger.Debug("Exiting GrantResourceOwnerCredentials");
-
-                                    auditLogger.AuditFormat("Could not create response object for user from IP <{0}>", userIp);
-
-                                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                                    //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
-                                }
-                            }
-
-                            if (loginValid)
-                            {
-                                //if success
-                                user.NumberTries = 0;
-                                user.FirstAttemptDate = null;
-                                user.SecondAttemptDate = null;
-                                user.CurrentLoginDate = DateTime.UtcNow;
-                                user.LastLoginDate = user.CurrentLoginDate;
-
-                                dbContext.SaveChanges();
-
-                                auditLogger.AuditFormat("User logged in from IP <{0}>", userIp);
-
-                                logger.TraceFormat("GrantResourceOwnerCredentials: User {0} authenticated.", user.UserName);
+                                ////logger.TraceFormat("GrantResourceOwnerCredentials: User {0} authenticated.", user.UserName);
 
                                 var userIdentity = new ClaimsIdentity(
-                                    new GenericIdentity(user.UserName),
+                                    new GenericIdentity(userName),
                                     new List<Claim>()
                                     {
-                                        new Claim("sub", user.UserId.ToString()),
-                                        new Claim(ClaimTypes.Name, user.UserName),
-                                        new Claim(IS_INTERNAL_KEY, isInternalUser.ToString().ToLower())
+                                        new Claim("sub", userId.ToString()),
+                                        new Claim(ClaimTypes.Name, userName)
                                     },
                                     context.Options.AuthenticationType,
                                     string.Empty,
@@ -415,22 +361,22 @@ namespace C3PO.Web.Security
 
                                 owinContext.Set("authenticationResponse", new AuthenticationResponse()
                                 {
-                                    token = _sessionManager.CreateSession(user.UserId, user.UserName, _serviceLocator.GetInstance<JwtFormat>().Protect(ticket), ticket.Properties.ExpiresUtc.Value)
+                                    Token = _sessionManager.CreateSession(userId, userName, _serviceLocator.GetInstance<JwtFormat>().Protect(ticket), ticket.Properties.ExpiresUtc.Value)
                                 });
 
                                 context.Request.User = new ClaimsPrincipal(userIdentity);
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        errMessage = "Authentication error: " + ex.InnerException;
-                        logger.Error("GrantResourceOwnerCredentials: unknown error in locating user", ex);
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        errMessage = "Authentication error: " + ex.InnerException;
+                //        logger.Error("GrantResourceOwnerCredentials: unknown error in locating user", ex);
 
-                        loginValid = false;
-                    }
-                }
-            }
+                //        loginValid = false;
+                //    }
+                //}
+            //}
 
             if (!loginValid)
             {

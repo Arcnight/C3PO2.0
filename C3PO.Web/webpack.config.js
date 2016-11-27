@@ -2,13 +2,20 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebPackPlugin = require('html-webpack-plugin');
 
-var APP_DIR = path.resolve(__dirname, 'jssrc');
-var BUILD_DIR = path.resolve(__dirname, 'jsbuild');
+const jsSrcDir = 'jssrc';
+
+var APP_DIR = path.resolve(__dirname, jsSrcDir);
+//var BUILD_DIR = path.resolve(__dirname, 'jsbuild');
+var BUILD_DIR = path.join(__dirname, 'wwwroot', 'dist');
 
 var config = {
-    entry: APP_DIR + '/client.jsx',
+    entry: {
+        client: [ APP_DIR + '/client.jsx' ],
+        //server: [ APP_DIR + '/server.jsx' ]
+    },
     output: {
         path: BUILD_DIR,
+        publicPath: '/',
         filename: '[name].[hash].js'
     },
     plugins: [new HtmlWebPackPlugin({
@@ -18,7 +25,7 @@ var config = {
     })],
     devtool: 'source-map',
     devServer: {
-        contentBase: 'jsbuild'
+        contentBase: BUILD_DIR
     },
     module: {
         loaders: [
@@ -33,6 +40,17 @@ var config = {
                 include: APP_DIR
             }
         ]
+    },
+    resolve: {
+        extensions: ['', '.js', '.jsx'],
+        alias: {
+            Utils: path.join(__dirname, jsSrcDir, 'utils'),
+            Actions: path.join(__dirname, jsSrcDir, 'actions'),
+            Reducers: path.join(__dirname, jsSrcDir, 'reducers'),
+            Constants: path.join(__dirname, jsSrcDir, 'constants'),
+            Components: path.join(__dirname, jsSrcDir, 'components'),
+            Containers: path.join(__dirname, jsSrcDir, 'components', 'containers')
+        }
     }
 };
 

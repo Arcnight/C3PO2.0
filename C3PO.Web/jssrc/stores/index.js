@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 
-import { authInitialState } from './auth';
-import { userInitialState } from './user';
+import { authInitialState } from 'auth';
+import { userInitialState } from 'user';
 
 var appStore = {};
 

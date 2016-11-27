@@ -1,5 +1,5 @@
-﻿import { Assign, CreateReducer } from '../utils';
-import userActions from '../constants/actiontypes/user';
+﻿import { Assign, CreateReducer } from 'Utils';
+import userActions from 'Constants/actiontypes/user';
 
 const initialState = {
     userName: null,

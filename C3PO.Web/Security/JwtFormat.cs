@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IdentityModel.Tokens;
 using System.Security.Cryptography;
+using System.ServiceModel.Security.Tokens;
 
+using Serilog;
 using Microsoft.Owin.Security;
 using OWINSecurity = Microsoft.Owin.Security;
 
-using Common.Logging;
-using IdentityModel.Tokens;
+using C3PO.Utilities;
+//using IdentityModel.Tokens;
 
 namespace C3PO.Web.Security
 {
@@ -15,7 +17,7 @@ namespace C3PO.Web.Security
         static string _audiences = "all";
         static string _issuer = "PSIP2.0";
 
-        ILog _logger;
+        ILogger _logger;
         double _minUntilExpiration;
 
         public byte[] SigningKey { get; private set; }
@@ -25,7 +27,7 @@ namespace C3PO.Web.Security
         public JwtFormat(double minUntilExpiration)
         {
             _minUntilExpiration = minUntilExpiration;
-            _logger = LogManager.GetCurrentClassLogger();
+            _logger = Logging.CreateLogger();
 
             SigningKey = new byte[64];
 
@@ -34,7 +36,7 @@ namespace C3PO.Web.Security
  
         public string Protect(AuthenticationTicket data)
         {
-            _logger.Trace("Entering Protect(AuthenticationTicket ticket)");
+            _logger.Debug("Entering Protect(AuthenticationTicket ticket)");
 
             if (data == null) throw new ArgumentNullException("data");
 
@@ -46,7 +48,7 @@ namespace C3PO.Web.Security
                     new JwtSecurityToken(_issuer, _audiences, data.Identity.Claims, currentTime, currentTime.AddMinutes(_minUntilExpiration), signingCredentials)
                 );
 
-                _logger.Trace("Exiting Protect(AuthenticationTicket)");
+                _logger.Debug("Exiting Protect(AuthenticationTicket)");
 
                 return tokenString;
             }
@@ -59,7 +61,7 @@ namespace C3PO.Web.Security
 
         public AuthenticationTicket Unprotect(string protectedText)
         {
-            _logger.Trace("Entering Unprotect(string protectedText)");
+            _logger.Debug("Entering Unprotect(string protectedText)");
 
             if (protectedText == null) throw new ArgumentNullException("protectedText");
 
@@ -73,7 +75,8 @@ namespace C3PO.Web.Security
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidAudiences = new[] { _audiences },
-                    IssuerSigningKey = new HmacSigningCredentials(SigningKey).SigningKey
+                    IssuerSigningToken = new BinarySecretSecurityToken(SigningKey)
+                    //IssuerSigningKey = new HmacSigningCredentials(SigningKey).SigningKey
                 };
 
                 //validate the jwt
@@ -81,7 +84,7 @@ namespace C3PO.Web.Security
 
                 ticket = jwtFormat.Unprotect(protectedText);
 
-                _logger.Trace("Exiting Unprotect(string protectedText)");
+                _logger.Debug("Exiting Unprotect(string protectedText)");
             }
             catch (Exception ex)
             {

@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Practices.ServiceLocation;
 
+using C3PO.Web.Security.Interfaces;
+
 namespace C3PO.Web.Security
 {
     internal class SessionOAuthBearerProvider : OAuthBearerAuthenticationProvider
@@ -28,7 +30,7 @@ namespace C3PO.Web.Security
 
                 if (string.IsNullOrEmpty(certString)) return Task.FromResult<object>(null);
 
-                var session = _sessionManager.GetSessionByUserName(Methods.GetCertificateFromString(certString).GetEDIPI());
+                var session = _sessionManager.GetSessionByUserName("rknight");
 
                 if (session != null) sessionId = session.SessionId;
             }

@@ -1,25 +1,21 @@
-/*
-import thunk from 'redux-thunk';
-import { render } from 'react-dom'
+﻿import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 import React, { Component } from 'react';
-import { connect, Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { browserHistory, Router, Route, Redirect } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
-import rootReducer from './reducers';
-import { siteURL } from './constants/urls';
-import { sessionInfo } from './actions/auth';
-
-import main from './components/main.jsx';
-import routes from './components/routes.jsx';
-import login from './components/pages/login.jsx';
+import reducer from 'Reducers';
+import routes from './routes.jsx';
+import main from 'Containers/main.jsx';
+import { login } from './pages';
 
 // Creates the Redux reducer with the redux-thunk middleware, which allows us
 // to do asynchronous things in the actions; need routerMiddleware to do pushes from dispatch
-const store = createStore(rootReducer, applyMiddleware(routerMiddleware(browserHistory), thunk));
+export const store = createStore(reducer, applyMiddleware(routerMiddleware(browserHistory), thunk));
 
-render(
+export const provider = (
+  /* Tell the Router to use our enhanced history */
 	<Provider store={ store }>
       <Router history={ syncHistoryWithStore(browserHistory, store) }>
         <Route path="/" component={ main }>
@@ -28,14 +24,5 @@ render(
             <Redirect from='logout' to='login' />
         </Route>
       </Router>
-	</Provider>,
-	document.getElementById('root')
+	</Provider>
 );
-*/
-
-import React from 'react';
-import { render } from 'react-dom';
-
-import { provider } from 'Components';
-
-render(provider, document.getElementById('root'));

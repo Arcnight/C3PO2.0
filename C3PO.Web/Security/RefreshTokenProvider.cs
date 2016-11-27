@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Owin.Security.Infrastructure;
 
+using C3PO.Web.Security.Interfaces;
+
 namespace C3PO.Web.Security
 {
     internal class RefreshTokenProvider : IAuthenticationTokenProvider

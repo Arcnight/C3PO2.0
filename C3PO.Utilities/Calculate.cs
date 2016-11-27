@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace C3PO.Web.Utilities
+﻿namespace C3PO.Utilities
 {
     public static class Calculate
     {

@@ -9,12 +9,12 @@ shivIE(document);
 //import './index.css';
 //  <img src={logo} className="App-logo" alt="logo" />
 
-class App extends Component {
+class Main extends Component {
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Welcome to React</h2>
+          <h2>C3PO</h2>
         </div>
         <div>        
           { this.props.children }
@@ -24,4 +24,4 @@ class App extends Component {
   }
 };
 
-export default App;
+export default Main;

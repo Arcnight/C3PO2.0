@@ -1,5 +1,5 @@
-import { Assign, CreateReducer } from '../utils';
-import { dataActionTypes } from '../constants/actiontypes';
+import { Assign, CreateReducer } from 'Utils';
+import { dataActionTypes } from 'Constants/actiontypes';
 
 const initialState = {
     data: null,

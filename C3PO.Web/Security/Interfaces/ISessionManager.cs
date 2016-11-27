@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace C3PO.Web.Security
+namespace C3PO.Web.Security.Interfaces
 {
     public interface ISessionManager : IDisposable
     {

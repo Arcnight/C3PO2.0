@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 
-import * as actionCreators from '../../actions/auth';
+import * as actionCreators from 'Actions/auth';
 
 let username = '';
 let password = '';
