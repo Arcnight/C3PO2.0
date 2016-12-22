@@ -6,9 +6,9 @@ import { browserHistory, Router, Route, Redirect } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
 import reducer from 'Reducers';
+import { login } from './pages';
 import routes from './routes.jsx';
 import main from 'Containers/main.jsx';
-import { login } from './pages';
 
 // Creates the Redux reducer with the redux-thunk middleware, which allows us
 // to do asynchronous things in the actions; need routerMiddleware to do pushes from dispatch

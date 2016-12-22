@@ -3,29 +3,20 @@ import { push } from 'react-router-redux';
 import { Route, IndexRoute } from 'react-router';
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 
+import * as pages from './pages';
 import { siteURL } from 'Constants/urls.js';
-import { event, search, dashboard } from './pages';
 import authenticated from 'Containers/authenticated.jsx';
 /*
-import dhowsearch from'./pages/dhowsearch';
-import mapsearch from'./pages/mapsearch';
-import metrics from'./pages/metrics';
-import vessel from'./pages/vessel';
-import person from'./pages/person';
-import company from'./pages/company';
-import links from'./pages/links';
-import templates from'./pages/templates';
-import template from'./pages/template';
 
-            <Route path="dhowsearch" component={dhowsearch} />
-            <Route path="mapsearch" component={mapsearch} />
-            <Route path="metrics" component={metrics} />
-            <Route path="vessel(/:id)" component={vessel} />
-            <Route path="person(/:id)" component={person} />
-            <Route path="company(/:id)" component={company} />
-            <Route path="links" component={links} />
-            <Route path="templates" component={templates} />
-            <Route path="template(/:id)" component={template} />
+    <Route path="dhowsearch" component={ pages.dhowsearch } />
+    <Route path="mapsearch" component={ pages.mapsearch } />
+    <Route path="metrics" component={ pages.metrics } />
+    <Route path="vessel(/:id)" component={ pages.vessel } />
+    <Route path="person(/:id)" component={ pages.person } />
+    <Route path="company(/:id)" component={ pages.company } />
+    <Route path="links" component={ pages.links } />
+    <Route path="templates" component={ pages.templates } />
+    <Route path="template(/:id)" component={ pages.template } />
 */
 
 /*
@@ -55,9 +46,9 @@ const UserIsAuthenticated = UserAuthWrapper({
 
 const routes = (
     <Route component={ UserIsAuthenticated(authenticated) }>
-        <IndexRoute component={ dashboard } />
-        <Route path="search" component={ search } />
-        <Route path="event(/:id)" component={ event } />
+        <IndexRoute component={ pages.dashboard } />
+        <Route path="search" component={ pages.search } />
+        <Route path="event(/:id)" component={ pages.event } />
     </Route>
 );
 
