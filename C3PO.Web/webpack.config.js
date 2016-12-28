@@ -6,17 +6,19 @@ const jsSrcDir = 'jssrc';
 
 var APP_DIR = path.resolve(__dirname, jsSrcDir);
 //var BUILD_DIR = path.resolve(__dirname, 'jsbuild');
-var BUILD_DIR = path.join(__dirname, 'wwwroot', 'dist');
+var BUILD_DIR = path.join(__dirname, 'wwwroot');
 
 var config = {
     entry: {
         client: [ APP_DIR + '/client.jsx' ],
-        //server: [ APP_DIR + '/server.jsx' ]
+        server: [ APP_DIR + '/server.jsx' ]
     },
     output: {
         path: BUILD_DIR,
         publicPath: '/',
-        filename: '[name].[hash].js'
+        filename: '[name].js',
+        libraryTarget: 'this'
+        //filename: '[name].[hash].js'
     },
     plugins: [new HtmlWebPackPlugin({
         title: 'C3PO',
@@ -45,6 +47,7 @@ var config = {
         extensions: ['', '.js', '.jsx'],
         alias: {
             Utils: path.join(__dirname, jsSrcDir, 'utils'),
+            Stores: path.join(__dirname, jsSrcDir, 'stores'),
             Actions: path.join(__dirname, jsSrcDir, 'actions'),
             Reducers: path.join(__dirname, jsSrcDir, 'reducers'),
             Constants: path.join(__dirname, jsSrcDir, 'constants'),

@@ -14,7 +14,7 @@ const Html = ({ component, store }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </head>
             <body>
-                <div id="content" dangerouslySetInnerHTML={{ __html: _content }} />
+                <div id="root" dangerouslySetInnerHTML={{ __html: _content }} />
                 <script dangerouslySetInnerHTML={{ __html: 'window.__data=${serialize(store.getState())};' }} />
                 <script src="client.js"></script>
             </body>

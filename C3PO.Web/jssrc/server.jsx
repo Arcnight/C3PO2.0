@@ -1,13 +1,13 @@
 ﻿import React from 'react';
 import { match } from 'react-router';
-import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/server';
 import RouterContext from 'react-router/lib/RouterContext';
 import createHistory from 'react-router/lib/createMemoryHistory';
 
+import { configureStore } from 'Stores';
+//import { getProvider } from 'Components';
 import routes from 'Components/routes.jsx';
 import { Html } from 'Containers/html.jsx';
-import { provider, store } from 'Components';
 
 export function renderView(callback, path, model, viewBag) {
     const _result = {
@@ -35,7 +35,16 @@ export function renderView(callback, path, model, viewBag) {
 
                 _result.status = notFound ? 404 : 200;
 
-                _result.html = ReactDOM.renderToString(<Html component={ provider } store={ store } />);
+                const store = configureStore(_initialState, history);
+                const component =
+                (
+                    <Provider store={store}>
+                        <RouterContext {...renderProps} />
+                    </Provider>
+                );
+
+                _result.html = ReactDOM.renderToString(<Html component={ component } store={ store } />);
+                //_result.html = ReactDOM.renderToString(<Html component={ getProvider(history, store) } store={ store } />);
                 _result.html = '<!DOCTYPE html>${_result.html}';
             } else {
                 _result.status = 404;

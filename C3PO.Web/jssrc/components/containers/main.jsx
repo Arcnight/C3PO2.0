@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 
-//import shivIE from 'shivie8';
-
-//shivIE(document);
-
 //import logo from './logo.svg';
 //import './App.css';
 //import './index.css';
