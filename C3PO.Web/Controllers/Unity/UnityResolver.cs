@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Http.Dependencies;
+//using System.Web.Http.Dependencies;
 
-using Microsoft.Practices.Unity;
+//using Microsoft.Practices.Unity;
 
 namespace C3PO.Web.Controllers.Unity
 {
-    public class UnityResolver : IDependencyResolver
+    public class UnityResolver //: IDependencyResolver
     {
+        /*
         protected IUnityContainer Container;
 
         public UnityResolver(IUnityContainer container)
         {
             if (container == null) throw new ArgumentNullException("container");
 
-            this.Container = container;
+            Container = container;
         }
 
         public object GetService(Type serviceType)
@@ -50,5 +51,6 @@ namespace C3PO.Web.Controllers.Unity
         public void Dispose()
         {
         }
+        */
     }
 }

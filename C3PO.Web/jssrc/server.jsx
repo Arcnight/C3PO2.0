@@ -1,13 +1,14 @@
 ﻿import React from 'react';
 import { match } from 'react-router';
-import ReactDOM from 'react-dom/server';
+import { Provider } from 'react-redux';
+import serialize from 'serialize-javascript';
+import { renderToString } from 'react-dom/server';
 import RouterContext from 'react-router/lib/RouterContext';
 import createHistory from 'react-router/lib/createMemoryHistory';
 
+import Html from 'Containers/html.jsx';
 import { configureStore } from 'Stores';
-//import { getProvider } from 'Components';
 import routes from 'Components/routes.jsx';
-import { Html } from 'Containers/html.jsx';
 
 export function renderView(callback, path, model, viewBag) {
     const _result = {
@@ -23,34 +24,36 @@ export function renderView(callback, path, model, viewBag) {
 
     const history = createHistory(path);
 
-    match(
-        { history: history, routes: routes, location: path },
-        (error, redirectLocation, renderProps) => {
-            if (redirectLocation) {
-                _result.redirect = redirectLocation.pathname + redirectLocation.search;
-            } else if (error) {
-                _result.status = 500;
-            } else if (renderProps) {
-                const notFound = renderProps.routes.filter((route) => route.status === 404).length > 0;
+    match({ history: history, routes: routes, location: path }, (error, redirectLocation, renderProps) => {
+        if (error) {
+            _result.status = 500;
+            _result.html = '<!DOCTYPE html><html><body>Internal error: ' + error + '</body></html>';
+        } else if (redirectLocation) {
+            _result.status = 302;
+            _result.redirect = redirectLocation.pathname + redirectLocation.search;
+        } else if (renderProps) {
+            const notFound = renderProps.routes.filter((route) => route.status === 404).length > 0;
 
-                _result.status = notFound ? 404 : 200;
-
+            if (notFound)
+            {
+                _result.status = 404;
+                _result.html = '<!DOCTYPE html><html><body>Could not find route</body></html>';
+            }
+            else
+            {
                 const store = configureStore(_initialState, history);
-                const component =
-                (
-                    <Provider store={store}>
+                const component = (
                         <RouterContext {...renderProps} />
-                    </Provider>
                 );
 
-                _result.html = ReactDOM.renderToString(<Html component={ component } store={ store } />);
-                //_result.html = ReactDOM.renderToString(<Html component={ getProvider(history, store) } store={ store } />);
-                _result.html = '<!DOCTYPE html>${_result.html}';
-            } else {
-                _result.status = 404;
+                _result.status = 202;
+                _result.html = '<!DOCTYPE html>' + renderToString(<Html component={ component } store={ store } />);
             }
+        } else {
+            _result.status = 404;
+            _result.html = '<!DOCTYPE html><html><body>Could not find route; renderProps is null: ' + (renderProps == null) + '; path: \'' + path + '\'; routes: ' + serialize(routes) + '</body></html>';
         }
-    );
+    });
 
     callback(null, _result);
 }

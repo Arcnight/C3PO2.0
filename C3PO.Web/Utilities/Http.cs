@@ -5,9 +5,12 @@ using System.Collections.Generic;
 
 using System.Net;
 using System.Net.Mime;
-
 using System.Net.Http;
-using System.Net.Http.Headers;
+
+using Microsoft.Net.Http.Headers;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 using Serilog;
 
@@ -17,14 +20,12 @@ namespace C3PO.Web.Utilities
 {
     public static class Http
     {
-        public static HttpResponseMessage CreateGoodResponse(HttpRequestMessage request, object payload = null)
+        public static IActionResult CreateGoodResponse(HttpRequest request, object payload = null)
         {
-            return (payload == null) ?
-                CreateResponse(request, HttpStatusCode.OK) :
-                CreateResponse(request, HttpStatusCode.OK, payload);
+            return CreateResponse(request, HttpStatusCode.OK, payload);
         }
 
-        public static HttpResponseMessage CreateResponse(HttpRequestMessage request, HttpStatusCode code)
+        public static IActionResult CreateResponse(HttpRequest request, HttpStatusCode code)
         {
             return CreateResponse(request, code, null);
         }
@@ -36,7 +37,7 @@ namespace C3PO.Web.Utilities
             //public string Type { get; set; }              // 2016-05-13 - CEby - Removed per CWeger & BBennett since the front end should not be using this field
         }
 
-        public static HttpResponseMessage CreateListResponse(HttpRequestMessage request, IEnumerable<object> payload, int? count = null)
+        public static IActionResult CreateListResponse(HttpRequest request, IEnumerable<object> payload, int? count = null)
         {
             ListObject returnList;
             if (payload == null)
@@ -52,36 +53,35 @@ namespace C3PO.Web.Utilities
                     Count = count ?? payload.Count()
                 };
             }
-            var aResponse = request.CreateResponse(HttpStatusCode.OK, returnList);
-            aResponse.Headers.Location = new Uri(request.RequestUri, string.Empty);
 
-            return aResponse;
+            return CreateResponse(request, HttpStatusCode.OK, payload);
+            //var aResponse = request.CreateResponse(HttpStatusCode.OK, returnList);
+            //aResponse.Headers.Location = new Uri(request.RequestUri, string.Empty);
+
+            //return aResponse;
         }
 
-        public static HttpResponseMessage CreateResponse(HttpRequestMessage request, HttpStatusCode code, object payload)
+        public static IActionResult CreateResponse(HttpRequest request, HttpStatusCode code, object payload)
         {
-            var aResponse = request.CreateResponse(code, payload);
-            aResponse.Headers.Location = new Uri(request.RequestUri, string.Empty);
+            var response = new ObjectResult(payload) { StatusCode = (int?)code };
+            return response;
 
-            return aResponse;
+            //var aResponse = request.CreateResponse(code, payload);
+            //aResponse.Headers.Location = new Uri(request.RequestUri, string.Empty);
+
+            //return aResponse;
         }
 
-        public static HttpResponseMessage CreateErrorResponse(HttpRequestMessage request, HttpStatusCode code, string message)
+        public static IActionResult CreateFileResponseMessageResponse(HttpRequest request, ILogger logger, byte[] attachment, string fileName, string mimeType)
         {
-            var aResponse = request.CreateErrorResponse(code, message);
-            aResponse.Headers.Location = new Uri(request.RequestUri, string.Empty);
-
-            return aResponse;
-        }
-
-        public static HttpResponseMessage CreateFileResponseMessageResponse(HttpRequestMessage request, ILogger logger, byte[] attachment, string fileName, string mimeType)
-        {
-            HttpResponseMessage fileResponse = request.CreateResponse(HttpStatusCode.OK);
+            ObjectResult fileResponse = new ObjectResult(null) { StatusCode = (int?)HttpStatusCode.OK };
 
             if (attachment == null)
             {
                 logger.Error("Attachment was null in CreateFileMessageResponse");
-                fileResponse = request.CreateResponse(HttpStatusCode.InternalServerError);
+
+                fileResponse.StatusCode = (int?)HttpStatusCode.InternalServerError;
+
                 return fileResponse;
             }
 
@@ -89,17 +89,17 @@ namespace C3PO.Web.Utilities
             {
                 var file = new MemoryStream(attachment);
 
-                fileResponse.Content = new StreamContent(file);
+                fileResponse.Value = new StreamContent(file);
 
                 try
                 {
                     // Newer office files may not work with the content type so we will try & if it fails we will default to "application/octet-stream"
-                    fileResponse.Content.Headers.ContentType = new MediaTypeHeaderValue(mimeType);
+                    fileResponse.ContentTypes.Add(new MediaTypeHeaderValue(mimeType));
                 }
                 catch (FormatException ex)
                 {
                     logger.Error("Error while creating media type header value (mime type).  Defaulting to application/download mime type.", ex);
-                    fileResponse.Content.Headers.ContentType = new MediaTypeHeaderValue("application/download");
+                    fileResponse.ContentTypes.Add(new MediaTypeHeaderValue("application/download"));
                 }
 
                 var cd = new ContentDisposition
@@ -108,27 +108,31 @@ namespace C3PO.Web.Utilities
                     Inline = false /* Ask the user to download.  Maps to "attachment" */
                 };
 
+                /*
                 fileResponse.Content.Headers.Add("Content-Disposition", cd.ToString());
                 fileResponse.Content.Headers.Add("Content-Length", file.Length.ToString());
                 fileResponse.Headers.Location = new Uri(request.RequestUri, string.Empty);
+                */
             }
             catch (Exception ex)
             {
                 logger.Error("Could not build message in CreateFileMessageReponse", ex);
-                fileResponse = request.CreateResponse(HttpStatusCode.InternalServerError);
+
+                fileResponse.StatusCode = (int?)HttpStatusCode.InternalServerError;
+
                 return fileResponse;
             }
 
             return fileResponse;
         }
 
-        public static HttpResponseMessage CreateQueryableDataResponse(HttpRequestMessage request, object payload)
-        {
-            HttpResponseMessage queryableDatResponse = request.CreateResponse(HttpStatusCode.OK, payload, "text/json");
+        //public static HttpResponse CreateQueryableDataResponse(HttpRequest request, object payload)
+        //{
+        //    HttpResponse queryableDatResponse = request.CreateResponse(HttpStatusCode.OK, payload, "text/json");
 
-            queryableDatResponse.Headers.Location = new Uri(request.RequestUri, string.Empty);
+        //    queryableDatResponse.Headers.Location = new Uri(request.RequestUri, string.Empty);
 
-            return queryableDatResponse;
-        }
+        //    return queryableDatResponse;
+        //}
     }
 }

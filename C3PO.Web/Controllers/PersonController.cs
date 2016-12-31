@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Web.Http;
-using System.Net.Http.Headers;
-using System.Web.Http.Description;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace C3PO.Web.Controllers
 {
-    internal class PersonController : ApiController
+    [Route("person"), Authorize]
+    public class PersonController : Controller
     {
     }
 }

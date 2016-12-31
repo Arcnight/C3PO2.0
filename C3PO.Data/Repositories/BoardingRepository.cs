@@ -7,7 +7,7 @@ using C3PO.Data.Interfaces;
 
 namespace C3PO.Data.Repositories
 {
-    public class BoardingRepository : BaseRepository<boarding>, IBoardingRepository
+    internal class BoardingRepository : BaseRepository<boarding>, IBoardingRepository
     {
     }
 }

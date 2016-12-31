@@ -1,8 +1,8 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using MPSLServiceLocator = Microsoft.Practices.ServiceLocation.ServiceLocator;
+﻿//using Microsoft.Practices.ServiceLocation;
+//using MPSLServiceLocator = Microsoft.Practices.ServiceLocation.ServiceLocator;
 
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
+//using Microsoft.Practices.Unity;
+//using Microsoft.Practices.Unity.Configuration;
 
 namespace C3PO.Web.Utilities
 {
@@ -10,26 +10,26 @@ namespace C3PO.Web.Utilities
     {
         static bool _serviceLocatorInitialized = false;
 
-        public static IServiceLocator ServiceLocator
-        {
-            get
-            {
-                if (!_serviceLocatorInitialized)
-                {
-                    var unityContainer = new UnityContainer();
-                    unityContainer.LoadConfiguration();
+        //public static IServiceLocator ServiceLocator
+        //{
+        //    get
+        //    {
+        //        if (!_serviceLocatorInitialized)
+        //        {
+        //            var unityContainer = new UnityContainer();
+        //            unityContainer.LoadConfiguration();
 
-                    var locator = new UnityServiceLocator(unityContainer);
+        //            var locator = new UnityServiceLocator(unityContainer);
 
-                    unityContainer.RegisterInstance(typeof(IServiceLocator), locator, new ContainerControlledLifetimeManager());
+        //            unityContainer.RegisterInstance(typeof(IServiceLocator), locator, new ContainerControlledLifetimeManager());
 
-                    MPSLServiceLocator.SetLocatorProvider(() => locator);
+        //            MPSLServiceLocator.SetLocatorProvider(() => locator);
 
-                    _serviceLocatorInitialized = true;
-                }
+        //            _serviceLocatorInitialized = true;
+        //        }
 
-                return MPSLServiceLocator.Current;
-            }
-        }
+        //        return MPSLServiceLocator.Current;
+        //    }
+        //}
     }
 }

@@ -1,13 +1,9 @@
 ﻿using System;
 
-//using System.Net;
 using System.Net.Http;
-//using System.Net.Http.Headers;
 
-using System.Web.Http;
-//using System.Web.Http.Description;
-
-using Microsoft.Practices.ServiceLocation;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 using C3PO.Data.Models;
 using C3PO.Data.Interfaces;
@@ -16,20 +12,20 @@ using C3PO.Web.Utilities;
 
 namespace C3PO.Web.Controllers
 {
-    [RoutePrefix("c3po"), Authorize]
-    public class BoardingController : ApiController
+    [Route("boarding"), Authorize]
+    public class BoardingController : Controller
     {
-        IServiceLocator _svcLocator;
+        IBoardingRepository _boardingRepo;
 
-        public BoardingController()
+        public BoardingController(IBoardingRepository boardingRepo)
         {
-            _svcLocator = IoC.ServiceLocator;
+            _boardingRepo = boardingRepo;
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(int id)
+        public IActionResult Get(int id)
         {
-            return Http.CreateGoodResponse(Request, _svcLocator.GetInstance<IBoardingRepository>().Get(id));
+            return Http.CreateGoodResponse(Request, _boardingRepo.Get(id));
         }
     }
 }

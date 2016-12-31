@@ -1,25 +1,23 @@
-﻿import ReactDOM from 'react-dom/server';
-import React, { PropTypes } from 'react';
-import serialize from 'serialize-javascript';
+﻿import serialize from 'serialize-javascript';
+import { renderToString } from 'react-dom/server';
+import React, { Component, PropTypes } from 'react';
 
-const Html = ({ component, store }) => {
-    const _content = component ? ReactDOM.renderToString(component) : '';
-    //<link rel="stylesheet" href="/dist/style.css" />
-    //<link rel="shortcut icon" href="/favicon.ico" />
-
-    return (
-        <html lang="en-us">
-            <head>
-                <title>React Webpack Sass Sample</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            </head>
-            <body>
-                <div id="root" dangerouslySetInnerHTML={{ __html: _content }} />
-                <script dangerouslySetInnerHTML={{ __html: 'window.__data=${serialize(store.getState())};' }} />
-                <script src="client.js"></script>
-            </body>
-        </html>
-    );
+class Html extends Component {
+    render() {
+        return (
+            <html lang="en-us">
+                <head>
+                    <title>React Webpack Sass Sample</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                </head>
+                <body>
+                    <div id="root" />
+                    <script dangerouslySetInnerHTML={{ __html: 'window.__data = ' + serialize(this.props.store.getState()) + ';' }} />
+                    <script src="client.js"></script>
+                </body>
+            </html>
+        );
+    }
 };
 
 Html.propTypes = {

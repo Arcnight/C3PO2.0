@@ -8,7 +8,7 @@ using C3PO.Data.Interfaces;
 
 namespace C3PO.Data.Repositories
 {
-    public abstract class BaseRepository<T> : IRepository<T> where T : class
+    internal abstract class BaseRepository<T> : IRepository<T> where T : class
     {
         protected postgresEntities DBContext { private set; get; }
 

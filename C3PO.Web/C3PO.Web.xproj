@@ -6,7 +6,7 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>eb68899f-4f55-4269-8968-4e25813c827b</ProjectGuid>
+    <ProjectGuid>4fa68224-c7b9-4328-94e1-f74e67b44f58</ProjectGuid>
     <RootNamespace>C3PO.Web</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
@@ -15,5 +15,12 @@
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\C3PO.Data\C3PO.Data.csproj" />
+    <ProjectReference Include="..\C3PO.Utilities\C3PO.Utilities.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <DnxInvisibleCompile Include="Security\AuthenticationProvider.cs" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\DotNet.Web\Microsoft.DotNet.Web.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

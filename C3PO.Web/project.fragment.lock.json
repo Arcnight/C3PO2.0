@@ -1,0 +1,50 @@
+{
+  "version": 2,
+  "exports": {
+    "C3PO.Data/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.5",
+      "compile": {
+        "bin/Debug/C3PO.Data.dll": {}
+      },
+      "runtime": {
+        "../packages/EntityFramework.4.1.10311.0/lib/EntityFramework.dll": {},
+        "../packages/EntityFramework5.Npgsql.3.0.3/lib/net45/EntityFramework5.Npgsql.dll": {},
+        "../packages/Microsoft.Extensions.DependencyInjection.1.1.0/lib/netstandard1.1/Microsoft.Extensions.DependencyInjection.dll": {},
+        "../packages/Microsoft.Extensions.DependencyInjection.Abstractions.1.1.0/lib/netstandard1.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {},
+        "../packages/Npgsql.3.0.3/lib/net45/Npgsql.dll": {},
+        "../packages/SimpleInjector.3.3.2/lib/net45/SimpleInjector.dll": {},
+        "../packages/System.Runtime.InteropServices.RuntimeInformation.4.3.0/lib/net45/System.Runtime.InteropServices.RuntimeInformation.dll": {},
+        "bin/Debug/C3PO.Data.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/C3PO.Data.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "C3PO.Utilities/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.5.2",
+      "compile": {
+        "bin/Debug/C3PO.Utilities.dll": {}
+      },
+      "runtime": {
+        "../packages/Serilog.2.3.0/lib/net45/Serilog.dll": {},
+        "../packages/Serilog.Sinks.ColoredConsole.2.0.0/lib/net45/Serilog.Sinks.ColoredConsole.dll": {},
+        "../packages/Serilog.Sinks.File.3.1.1/lib/net45/Serilog.Sinks.File.dll": {},
+        "../packages/Serilog.Sinks.RollingFile.3.2.0/lib/net45/Serilog.Sinks.RollingFile.dll": {},
+        "bin/Debug/C3PO.Utilities.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/C3PO.Utilities.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    }
+  }
+}

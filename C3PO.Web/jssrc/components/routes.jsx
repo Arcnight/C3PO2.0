@@ -1,9 +1,10 @@
 ﻿import React, { Component } from 'react';
 import { push } from 'react-router-redux';
-import { Route, IndexRoute } from 'react-router';
 import { UserAuthWrapper } from 'redux-auth-wrapper';
+import { Route, IndexRoute, Redirect } from 'react-router';
 
 import * as pages from './pages';
+import main from 'Containers/main.jsx';
 import { siteURL } from 'Constants/urls.js';
 import authenticated from 'Containers/authenticated.jsx';
 /*
@@ -45,10 +46,14 @@ const UserIsAuthenticated = UserAuthWrapper({
 });
 
 const routes = (
-    <Route component={ UserIsAuthenticated(authenticated) }>
-        <IndexRoute component={ pages.dashboard } />
-        <Route path="search" component={ pages.search } />
-        <Route path="event(/:id)" component={ pages.event } />
+    <Route path="/" component={ main }>
+        <Route component={ UserIsAuthenticated(authenticated) }>
+            <IndexRoute component={ pages.dashboard } />
+            <Route path="search" component={ pages.search } />
+            <Route path="event(/:id)" component={ pages.event } />
+        </Route>
+        <Route path="login" component={ pages.login } />
+        <Redirect from='logout' to='login' />
     </Route>
 );
 
