@@ -12,8 +12,8 @@ class Html extends Component {
                 </head>
                 <body>
                     <div id="root" />
-                    <script dangerouslySetInnerHTML={{ __html: 'window.__data = ' + serialize(this.props.store.getState()) + ';' }} />
-                    <script src="client.js"></script>
+                    <script type="text/javascript" dangerouslySetInnerHTML={{ __html: 'window.__data = ' + serialize(this.props.store.getState()) + ';' }} />
+                    <script type="text/javascript" src="client.js"></script>
                 </body>
             </html>
         );

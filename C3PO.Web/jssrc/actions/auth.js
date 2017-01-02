@@ -1,4 +1,5 @@
-﻿import appCache from 'store';
+﻿import qs from 'qs';
+import appCache from 'store';
 import { push } from 'react-router-redux';
 
 import { AnyNullElements } from 'Utils';
@@ -88,11 +89,15 @@ export function LoginUser(username, password, redirectUrl) {
 
 		//dispatch(<animation event>)
 
-		/*
-		*/
-	    post(apiURL.LOGIN_URL, {
-	        UserName: username,
-	        Password: password
+	    post(apiURL.LOGIN_URL,
+        {
+	        username: username,
+	        password: password,
+	        grant_type: 'password'
+	    },
+	    {
+			transformRequest: function(data) { return qs.stringify(data); },
+	        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 	    })
 		.then((response) => {
 		    dispatch(LoginSuccess(response));

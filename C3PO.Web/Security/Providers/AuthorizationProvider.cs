@@ -25,63 +25,65 @@ namespace C3PO.Web.Security.Providers
             
         }
 
-        //public override async Task ValidateAuthorizationRequest(ValidateAuthorizationRequestContext context)
-        //{
-        //    // Note: the OpenID Connect server middleware supports the authorization code, implicit and hybrid flows
-        //    // but this authorization provider only accepts response_type=code authorization/authentication requests.
-        //    // You may consider relaxing it to support the implicit or hybrid flows. In this case, consider adding
-        //    // checks rejecting implicit/hybrid authorization requests when the client is a confidential application.
-        //    if (!context.Request.IsAuthorizationCodeFlow())
-        //    {
-        //        context.Reject(
-        //            error: OpenIdConnectConstants.Errors.UnsupportedResponseType,
-        //            description: "Only the authorization code flow is supported by this authorization server");
+        public override async Task ValidateAuthorizationRequest(ValidateAuthorizationRequestContext context)
+        {
+            context.Validate();
 
-        //        return;
-        //    }
+            //    // Note: the OpenID Connect server middleware supports the authorization code, implicit and hybrid flows
+            //    // but this authorization provider only accepts response_type=code authorization/authentication requests.
+            //    // You may consider relaxing it to support the implicit or hybrid flows. In this case, consider adding
+            //    // checks rejecting implicit/hybrid authorization requests when the client is a confidential application.
+            //    if (!context.Request.IsAuthorizationCodeFlow())
+            //    {
+            //        context.Reject(
+            //            error: OpenIdConnectConstants.Errors.UnsupportedResponseType,
+            //            description: "Only the authorization code flow is supported by this authorization server");
 
-        //    // Note: to support custom response modes, the OpenID Connect server middleware doesn't
-        //    // reject unknown modes before the ApplyAuthorizationResponse event is invoked.
-        //    // To ensure invalid modes are rejected early enough, a check is made here.
-        //    if (!string.IsNullOrEmpty(context.Request.ResponseMode) && !context.Request.IsFormPostResponseMode() &&
-        //                                                               !context.Request.IsFragmentResponseMode() &&
-        //                                                               !context.Request.IsQueryResponseMode())
-        //    {
-        //        context.Reject(
-        //            error: OpenIdConnectConstants.Errors.InvalidRequest,
-        //            description: "The specified response_mode is unsupported.");
+            //        return;
+            //    }
 
-        //        return;
-        //    }
+            //    // Note: to support custom response modes, the OpenID Connect server middleware doesn't
+            //    // reject unknown modes before the ApplyAuthorizationResponse event is invoked.
+            //    // To ensure invalid modes are rejected early enough, a check is made here.
+            //    if (!string.IsNullOrEmpty(context.Request.ResponseMode) && !context.Request.IsFormPostResponseMode() &&
+            //                                                               !context.Request.IsFragmentResponseMode() &&
+            //                                                               !context.Request.IsQueryResponseMode())
+            //    {
+            //        context.Reject(
+            //            error: OpenIdConnectConstants.Errors.InvalidRequest,
+            //            description: "The specified response_mode is unsupported.");
 
-        //    var database = context.HttpContext.RequestServices.GetRequiredService<ApplicationContext>();
+            //        return;
+            //    }
 
-        //    // Retrieve the application details corresponding to the requested client_id.
-        //    var application = await (from entity in database.Applications
-        //                             where entity.ApplicationID == context.ClientId
-        //                             select entity).SingleOrDefaultAsync(context.HttpContext.RequestAborted);
+            //    var database = context.HttpContext.RequestServices.GetRequiredService<ApplicationContext>();
 
-        //    if (application == null)
-        //    {
-        //        context.Reject(
-        //            error: OpenIdConnectConstants.Errors.InvalidClient,
-        //            description: "Application not found in the database: ensure that your client_id is correct");
+            //    // Retrieve the application details corresponding to the requested client_id.
+            //    var application = await (from entity in database.Applications
+            //                             where entity.ApplicationID == context.ClientId
+            //                             select entity).SingleOrDefaultAsync(context.HttpContext.RequestAborted);
 
-        //        return;
-        //    }
+            //    if (application == null)
+            //    {
+            //        context.Reject(
+            //            error: OpenIdConnectConstants.Errors.InvalidClient,
+            //            description: "Application not found in the database: ensure that your client_id is correct");
 
-        //    if (!string.IsNullOrEmpty(context.RedirectUri) &&
-        //        !string.Equals(context.RedirectUri, application.RedirectUri, StringComparison.Ordinal))
-        //    {
-        //        context.Reject(
-        //            error: OpenIdConnectConstants.Errors.InvalidClient,
-        //            description: "Invalid redirect_uri");
+            //        return;
+            //    }
 
-        //        return;
-        //    }
+            //    if (!string.IsNullOrEmpty(context.RedirectUri) &&
+            //        !string.Equals(context.RedirectUri, application.RedirectUri, StringComparison.Ordinal))
+            //    {
+            //        context.Reject(
+            //            error: OpenIdConnectConstants.Errors.InvalidClient,
+            //            description: "Invalid redirect_uri");
 
-        //    context.Validate(application.RedirectUri);
-        //}
+            //        return;
+            //    }
+
+            //    context.Validate(application.RedirectUri);
+        }
 
         public override Task ValidateTokenRequest(ValidateTokenRequestContext context)
         {
@@ -173,11 +175,12 @@ namespace C3PO.Web.Security.Providers
             // Note: to mitigate brute force attacks, you SHOULD strongly consider applying
             // a key derivation function like PBKDF2 to slow down the secret validation process.
             // You SHOULD also consider using a time-constant comparer to prevent timing attacks.
-            if (string.Equals(context.ClientId, "client_id", StringComparison.Ordinal) &&
-                string.Equals(context.ClientSecret, "client_secret", StringComparison.Ordinal))
-            {
-                context.Validate();
-            }
+            //            if (string.Equals(context.ClientId, "client_id", StringComparison.Ordinal) &&
+            //                string.Equals(context.ClientSecret, "client_secret", StringComparison.Ordinal))
+            //            {
+            //                context.Validate();
+            //            }
+            context.Skip();
 
             // Note: if Validate() is not explicitly called,
             // the request is automatically rejected.

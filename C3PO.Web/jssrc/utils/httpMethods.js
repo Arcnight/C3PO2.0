@@ -5,14 +5,14 @@ export function get(url, id)
 	return axios.get(url, id);
 };
 
-export function put(url, formData)
+export function put(url, data, config)
 {
-	return axios.put(url, formData);
+	return axios.put(url, data, config);
 };
 
-export function post(url, formData)
+export function post(url, data, config)
 {
-	return axios.post(url, formData);
+    return axios.post(url, data, config);
 };
 
 export function del(url, id)

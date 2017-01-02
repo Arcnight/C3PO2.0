@@ -42,9 +42,7 @@ export function renderView(callback, path, model, viewBag) {
             else
             {
                 const store = configureStore(_initialState, history);
-                const component = (
-                        <RouterContext {...renderProps} />
-                );
+                const component = (<RouterContext {...renderProps} />);
 
                 _result.status = 202;
                 _result.html = '<!DOCTYPE html>' + renderToString(<Html component={ component } store={ store } />);
