@@ -2,13 +2,14 @@
 import appCache from 'store';
 import { push } from 'react-router-redux';
 
+import { get, post } from 'Utils/http';
 import { AnyNullElements } from 'Utils';
-import { get, post } from 'Utils/httpMethods';
-import { siteURL, apiURL } from 'Constants/urls';
+import { TOKEN_KEY } from 'Constants/keynames';
+import { SITEURL, APIURL } from 'Constants/urls';
 import userActions from 'Constants/actiontypes/user';
 
 export const sessionInfo = {
-	isLoggedIn: () => { return !!appCache.get('token'); }
+    isLoggedIn: () => { return !!appCache.get(TOKEN_KEY); }
 };
 
 /* action creators */
@@ -18,7 +19,7 @@ export function LoginSuccess(response) {
 
 
     let token = 'jkl;jfskl;a';
-	appCache.set('token', token);
+    appCache.set(TOKEN_KEY, token);
 
 	return {
 		type: userActions.LOGIN_USER_SUCCESS,
@@ -29,7 +30,7 @@ export function LoginSuccess(response) {
 }
 
 export function LoginFailure(error) {
-	appCache.remove('token');
+    appCache.remove(TOKEN_KEY);
 
 	let errMsg = error.response.statusText;
 
@@ -51,7 +52,7 @@ export function LoginRequest() {
 export function LogoutAndRedirect() {
     return (dispatch, state) => {
         dispatch(LogoutUser());
-        dispatch(push('/login'));
+        dispatch(push(SITEURL.Login));
     }
 }
 
@@ -89,7 +90,7 @@ export function LoginUser(username, password, redirectUrl) {
 
 		//dispatch(<animation event>)
 
-	    post(apiURL.LOGIN_URL,
+	    post(APIURL.LOGIN,
         {
 	        username: username,
 	        password: password,
@@ -115,7 +116,7 @@ export function LoginUser(username, password, redirectUrl) {
  */
 export function LogoutUser()
 {
-    appCache.remove('token');
+    appCache.remove(TOKEN_KEY);
 
 	/*
     return (dispatch) => {
@@ -127,7 +128,7 @@ export function LogoutUser()
             alert(response);
         });
 
-        //ForwardTo(siteURL.LOGIN_URL);
+        //ForwardTo(SITEURL.LOGIN_URL);
     */
 
     return { type: userActions.LOGOUT_USER };

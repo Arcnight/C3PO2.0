@@ -5,7 +5,7 @@ import { Route, IndexRoute, Redirect } from 'react-router';
 
 import * as pages from './pages';
 import main from 'Containers/main.jsx';
-import { siteURL } from 'Constants/urls.js';
+//import { SITEURL } from 'Constants/urls.js';
 import authenticated from 'Containers/authenticated.jsx';
 /*
 
