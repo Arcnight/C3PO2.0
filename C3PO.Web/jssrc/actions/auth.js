@@ -14,11 +14,7 @@ export const sessionInfo = {
 
 /* action creators */
 
-export function LoginSuccess(response) {
-    // Parse response from server and get token
-
-
-    let token = 'jkl;jfskl;a';
+export function LoginSuccess(username, token) {
     appCache.set(TOKEN_KEY, token);
 
 	return {
@@ -101,13 +97,23 @@ export function LoginUser(username, password, redirectUrl) {
 	        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 	    })
 		.then((response) => {
-		    dispatch(LoginSuccess(response));
+		    if (response.data)
+		    {
+		        // Parse response from server and get token
+		        dispatch(LoginSuccess(username, response.data.access_token));
 
-		    //dispatch(<stop animation event>)
+		        //dispatch(<stop animation event>)
 
-		    dispatch(push(redirectUrl));
+		        dispatch(push(redirectUrl));
+		    }
+		    else
+		    {
+                
+            }
 		})
-		.catch((response) => { LoginFailure({ response: response }) });
+		.catch((response) => {
+		    LoginFailure({ response: response })
+		});
 	}
 }
 

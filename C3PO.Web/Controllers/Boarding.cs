@@ -13,11 +13,11 @@ using C3PO.Web.Utilities;
 namespace C3PO.Web.Controllers
 {
     [Route("boarding"), Authorize]
-    public class BoardingController : Controller
+    public class Boarding : Controller
     {
         IBoardingRepository _boardingRepo;
 
-        public BoardingController(IBoardingRepository boardingRepo)
+        public Boarding(IBoardingRepository boardingRepo)
         {
             _boardingRepo = boardingRepo;
         }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace C3PO.Web.Controllers
 {
     [Route("person"), Authorize]
-    public class PersonController : Controller
+    public class Person : Controller
     {
     }
 }

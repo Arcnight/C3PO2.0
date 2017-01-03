@@ -50,8 +50,6 @@ namespace C3PO.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication();
-
             services.AddJsEngine(builder =>
             {
                 builder
@@ -108,10 +106,10 @@ namespace C3PO.Web
                 options.Provider = new AuthorizationProvider();
 
                 // Enable the authorization, logout, token and userinfo endpoints.
-                options.AuthorizationEndpointPath = "/api/account/authorize";
-                options.LogoutEndpointPath = "/api/account/logout";
                 options.TokenEndpointPath = "/api/account/login";
+                options.LogoutEndpointPath = "/api/account/logout";
                 options.UserinfoEndpointPath = "/api/account/userinfo";
+                options.AuthorizationEndpointPath = string.Empty; // "/api/account/authorize";
 
                 // Register a new ephemeral key, that is discarded when the application
                 // shuts down. Tokens signed using this key are automatically invalidated.

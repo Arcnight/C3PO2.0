@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace C3PO.Web.Controllers
 {
-    [Route("search"), Authorize]
-    public class SearchController : Controller
+    [Route("user"), Authorize]
+    public class User : Controller
     {
     }
 }

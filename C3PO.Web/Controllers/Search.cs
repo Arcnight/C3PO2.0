@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
 namespace C3PO.Web.Controllers
 {
-    [Route("vessel"), Authorize]
-    public class VesselController : Controller
+    [Route("search"), Authorize]
+    public class Search: Controller
     {
     }
 }
